@@ -3,18 +3,28 @@
 #include "Sensor.h"
 #include "Battery.h"
 #include "Servo.h"
-#include "LineFollowing.h"
-
+//#include "LineFollowing.h"
+//2429 min
+//test mode
+// TODO Ask Aditya how to better organize LineFollowing and Navigation into
+// TODO Think about how to do the line following. Need that for jukebox, ice cream, burger and tray potentially
+// TODO Need to start coding the servos with better functions for the tray deposit and ticket slider.
 int main() {
-    front_servo.TouchCalibrate();
-    display_battery_voltage();
-    move_forward(10);
-    Sleep(1.0);
-    turn_right(90);
-    Sleep(1.0);
-    turn_left(90);
-    Sleep(1.0);
-    //move_back(10);
+    back_servo.SetMin(500);
+    back_servo.SetMax(2400);
+    back_servo.SetDegree(0);
+    Sleep(1.5);
+    back_servo.SetDegree(90);
+    Sleep(1.5);
+    back_servo.SetDegree(180);
+    // display_battery_voltage();
+    // move_forward(10);
+    // Sleep(1.0);
+    // turn_right(90);
+    // Sleep(1.0);
+    // turn_left(90);
+    // Sleep(1.0);
+    // move_back(10);
 
     return 0;
     // wait_for_light();

@@ -1,18 +1,34 @@
 #include "Navigation.h"
 
+// Test Code
+void test_navigation() {
+    move_forward(12);
+    Sleep(1.0);
+    turn_right(90);
+    Sleep(1.0);
+    turn_left(90);
+    Sleep(1.0);
+    turn_left(90);
+    Sleep(1.0);
+    turn_right(90);
+    Sleep(1.0);
+    move_back(12);
+}
+// Encoder Functions
 void reset_encoder_counts() {
     right_encoder.ResetCounts();
     left_encoder.ResetCounts();
 }
 
-void turn_left(double degrees) {
-    turn(-degrees);
+double inches_to_counts(double inches) {
+    double circumference = M_PI * WHEEL_DIAMETER;
+    double rotations = inches / circumference;
+    double total_counts = rotations * TRANSITIONS_PER_REVOLUTION;
+
+    return total_counts;
 }
 
-void turn_right(double degrees) {
-    turn(degrees);
-}
-
+// Motor Percentage Manipulation
 void set_both(double percent) {
     set_right_percent(percent);
     set_left_percent(percent);
@@ -24,6 +40,15 @@ void set_right_percent(double percent) {
 
 void set_left_percent(double percent) {
     left_motor.SetPercent(-percent);
+}
+
+// Turning
+void turn_left(double degrees) {
+    turn(-degrees);
+}
+
+void turn_right(double degrees) {
+    turn(degrees);
 }
 
 void turn(double degrees) {
@@ -47,14 +72,7 @@ void turn(double degrees) {
     stop();
 }   
 
-double inches_to_counts(double inches) {
-    double circumference = M_PI * WHEEL_DIAMETER;
-    double rotations = inches / circumference;
-    double total_counts = rotations * TRANSITIONS_PER_REVOLUTION;
-
-    return total_counts;
-}
-
+// Motor Functions
 void turn_with_angle(double inches, double degrees) {
     double left_wheel_percent = STRAIGHT_SPEED_PERCENT;
     double right_wheel_percent = STRAIGHT_SPEED_PERCENT;
@@ -76,20 +94,11 @@ void turn_with_angle(double inches, double degrees) {
 }
 
 void move_forward(double inches) {
-    move_forward(inches, STRAIGHT_SPEED_PERCENT);
+    move_forward(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
 }
 
 void move_forward(double inches, double speed) {
-    reset_encoder_counts();
-    
-    double total_counts = inches_to_counts(inches);
-    
-    set_right_percent(speed);
-    set_left_percent(speed);
-    
-    while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < total_counts) {}
-
-    stop();
+    move_forward(inches, speed, speed);
 }
 
 void move_forward(double inches, double left_speed, double right_speed) {
@@ -106,20 +115,11 @@ void move_forward(double inches, double left_speed, double right_speed) {
 }
 
 void move_back(double inches) {
-    move_back(inches, STRAIGHT_SPEED_PERCENT);
+    move_back(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
 }
 
 void move_back(double inches, double speed) {
-    reset_encoder_counts();
-    
-    double total_counts = inches_to_counts(inches);
-    
-    set_left_percent(-speed);
-    set_right_percent(-speed);
-    
-    while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < total_counts) {}
-    
-    stop();
+    move_back(inches, speed, speed);
 }
 
 void move_back(double inches, double left_speed, double right_speed) {

@@ -1,6 +1,7 @@
 // Header Files
 #include <FEHMotor.h>
 #include <FEHIO.h>
+#include <FEHLCD.h>
 #include <cmath>
 
 // Constants
@@ -35,4 +36,4 @@ void move_forward(double, double, double);
 void move_back(double);
 void move_back(double, double);
 void move_back(double, double, double);
-void stop();
+void test_navigation();
