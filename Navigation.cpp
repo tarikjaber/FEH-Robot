@@ -9,16 +9,28 @@ DigitalEncoder right_encoder(FEHIO::P2_7);
 //* Test Code
 void test_navigation() {
     move_forward(12);
+    LCD.WriteLine(left_encoder.Counts());
+    LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_right(90);
+    LCD.WriteLine(left_encoder.Counts());
+    LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_left(90);
+    LCD.WriteLine(left_encoder.Counts());
+    LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_left(90);
+    LCD.WriteLine(left_encoder.Counts());
+    LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_right(90);
+    LCD.WriteLine(left_encoder.Counts());
+    LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     move_back(12);
+    LCD.WriteLine(left_encoder.Counts());
+    LCD.WriteLine(right_encoder.Counts());
 }
 //* Encoder Functions
 void reset_encoder_counts() {
@@ -32,6 +44,23 @@ double inches_to_counts(double inches) {
     double total_counts = rotations * TRANSITIONS_PER_REVOLUTION;
 
     return total_counts;
+}
+
+void move_counts(double counts, double left_speed, double right_speed) {
+    double current_left_speed = left_speed;
+    double current_right_speed = right_speed;
+
+    set_left_percent(current_left_speed);
+    set_right_percent(current_right_speed);
+
+    while ((right_encoder.Counts() + left_encoder.Counts()) / counts) {
+        if (left_encoder.Counts() < right_encoder.Counts()) {
+            current_left_speed *= 1.01;
+        } else if (left_encoder.Counts() > right_encoder.Counts()) {
+            current_left_speed *= 0.99;
+        }
+        set_left_percent(current_left_speed);
+    }
 }
 
 //* Motor Percentage Manipulation
@@ -63,18 +92,14 @@ void turn(double degrees) {
     double motor_percent = 20;
     
     // If degrees is negative then turn left
-    // NOTE: Turning left is negative degrees. 
-    // Turning right is positive degrees.
+    // NOTE: Turning left is "negative" degrees. 
+    // Turning right is "positive" degrees.
     if (degrees < 0) {
         motor_percent *= -1;
         degrees *= -1;
     }
 
-    set_left_percent(motor_percent);
-    set_right_percent(-motor_percent);
-
-    while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < degrees * COUNTS_PER_DEGREE) {}
-
+    move_counts(degrees * COUNTS_PER_DEGREE, motor_percent, -motor_percent);
     stop();
 }   
 
@@ -91,12 +116,8 @@ void turn_with_angle(double inches, double degrees) {
     } else {
         left_wheel_percent -= degrees;
     }
-    
-    set_left_percent(left_wheel_percent);
-    set_right_percent(right_wheel_percent);
 
-    while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < total_counts) {}
-
+    move_counts(total_counts, left_wheel_percent, right_wheel_percent);
     stop();
 }
 
@@ -112,12 +133,8 @@ void move_forward(double inches, double left_speed, double right_speed) {
     reset_encoder_counts();
     
     double total_counts = inches_to_counts(inches);
-    
-    set_left_percent(left_speed);
-    set_right_percent(right_speed);
-    
-    while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < total_counts) {}
 
+    move_counts(total_counts, left_speed, right_speed);
     stop();
 }
 
@@ -133,12 +150,8 @@ void move_back(double inches, double left_speed, double right_speed) {
     reset_encoder_counts();
     
     double total_counts = inches_to_counts(inches);
-    
-    set_left_percent(-left_speed);
-    set_right_percent(-right_speed);
-    
-    while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < total_counts) {}
-    
+
+    move_counts(total_counts, -left_speed, -right_speed);
     stop();
 }
 

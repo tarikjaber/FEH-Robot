@@ -5,9 +5,9 @@
 
 #define WHEEL_DIAMETER 3
 #define TRANSITIONS_PER_REVOLUTION 318
-#define COUNTS_PER_DEGREE 2.20
+#define COUNTS_PER_DEGREE 2.40
 #define STRAIGHT_SPEED_PERCENT 30.0
-#define RIGHT_CORRECTION_FACTOR 1.05
+#define RIGHT_CORRECTION_FACTOR 1.00
 
 extern FEHMotor left_motor;
 extern FEHMotor right_motor;
@@ -20,6 +20,7 @@ void test_navigation();
 // Encoders
 double inches_to_counts(double);
 void reset_encoder_counts();
+void travel_counts(double);
 // Turning
 void turn_left(double);
 void turn_right(double);
