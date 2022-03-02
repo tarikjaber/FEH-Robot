@@ -1,5 +1,7 @@
 #include "Sensor.h"
 
+AnalogInputPin cds_cell(FEHIO::P2_0);
+
 bool is_red() {
     bool is_red = false;
     

@@ -1,6 +1,6 @@
 #include <FEHIO.h>
 
-AnalogInputPin cds_cell(FEHIO::P2_0);
+extern AnalogInputPin cds_cell;
 
 // Function Prototypes
 bool is_red();

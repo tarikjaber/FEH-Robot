@@ -1,5 +1,9 @@
 #include "Servo.h"
 
+FEHServo front_servo(FEHServo::Servo6); 
+FEHServo side_servo(FEHServo::Servo7); 
+FEHServo back_servo(FEHServo::Servo0);
+
 void calibrate_front() {
     front_servo.TouchCalibrate();
 }

@@ -1,6 +1,12 @@
 #include "Navigation.h"
 
-// Test Code
+FEHMotor left_motor(FEHMotor::Motor0, 9.0);
+FEHMotor right_motor(FEHMotor::Motor1, 9.0);
+
+DigitalEncoder left_encoder(FEHIO::P1_0);
+DigitalEncoder right_encoder(FEHIO::P2_7);
+
+//* Test Code
 void test_navigation() {
     move_forward(12);
     Sleep(1.0);
@@ -14,7 +20,7 @@ void test_navigation() {
     Sleep(1.0);
     move_back(12);
 }
-// Encoder Functions
+//* Encoder Functions
 void reset_encoder_counts() {
     right_encoder.ResetCounts();
     left_encoder.ResetCounts();
@@ -28,7 +34,7 @@ double inches_to_counts(double inches) {
     return total_counts;
 }
 
-// Motor Percentage Manipulation
+//* Motor Percentage Manipulation
 void set_both(double percent) {
     set_right_percent(percent);
     set_left_percent(percent);
@@ -42,7 +48,7 @@ void set_left_percent(double percent) {
     left_motor.SetPercent(-percent);
 }
 
-// Turning
+//* Turning
 void turn_left(double degrees) {
     turn(-degrees);
 }
@@ -72,7 +78,8 @@ void turn(double degrees) {
     stop();
 }   
 
-// Motor Functions
+//* Motor Functions
+// TODO Think about how to better implement this function
 void turn_with_angle(double inches, double degrees) {
     double left_wheel_percent = STRAIGHT_SPEED_PERCENT;
     double right_wheel_percent = STRAIGHT_SPEED_PERCENT;
