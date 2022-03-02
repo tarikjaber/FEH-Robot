@@ -1,5 +1,8 @@
 #include <FEHServo.h>
 
+#ifndef SERVO_H
+#define SERVO_H
+
 extern FEHServo front_servo; 
 extern FEHServo side_servo; 
 extern FEHServo back_servo;
@@ -15,3 +18,5 @@ void calibrate_front();
 void calibrate_side();
 void calibrate_back();
 void set_up_servos();
+
+#endif

@@ -3,6 +3,9 @@
 #include <FEHLCD.h>
 #include <cmath>
 
+#ifndef NAVIGATION_H
+#define NAVIGATION_H
+
 #define WHEEL_DIAMETER 3
 #define TRANSITIONS_PER_REVOLUTION 318
 #define COUNTS_PER_DEGREE 2.40
@@ -37,3 +40,5 @@ void move_forward(double, double, double);
 void move_back(double);
 void move_back(double, double);
 void move_back(double, double, double);
+
+#endif
