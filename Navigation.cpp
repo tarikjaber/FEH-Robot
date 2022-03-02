@@ -53,7 +53,7 @@ void move_counts(double counts, double left_speed, double right_speed) {
     set_left_percent(current_left_speed);
     set_right_percent(current_right_speed);
 
-    while ((right_encoder.Counts() + left_encoder.Counts()) / counts) {
+    while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
         if (left_encoder.Counts() < right_encoder.Counts()) {
             current_left_speed *= 1.01;
         } else if (left_encoder.Counts() > right_encoder.Counts()) {
