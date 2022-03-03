@@ -1,8 +1,8 @@
 #include "Servo.h"
 
-FEHServo horizontal_servo(FEHServo::Servo6); 
-FEHServo side_servo(FEHServo::Servo7); 
-FEHServo back_servo(FEHServo::Servo0);
+FEHServo horizontal_servo(FEHServo::Servo1); 
+FEHServo side_servo(FEHServo::Servo6); 
+FEHServo back_servo(FEHServo::Servo7);
 
 void calibrate_horizontal() {
     horizontal_servo.TouchCalibrate();
@@ -25,20 +25,37 @@ void set_up_servos() {
     back_servo.SetMax(BACK_SERVO_MAX);
 }
 
+// All Arms
 void reset_arms() {
     reset_back_arm();
     reset_horizontal_arm();
     reset_horizontal_arm();
 }
 
+// Back Arm
+void drop_back_arm() {
+    back_servo.SetDegree(BACK_ACTIVE_DEGREE);
+}
+
 void reset_back_arm() {
     back_servo.SetDegree(BACK_REST_DEGREE);
+}
+
+// Side Arm
+void drop_side_arm() {
+
 }
 
 void reset_side_arm() {
     side_servo.SetDegree(SIDE_REST_DEGREE);
 }
 
+// Horizontal Arm
+void open_horizontal_arm() {
+
+}
+
 void reset_horizontal_arm() {
     horizontal_servo.SetDegree(HORIZONTAL_REST_DEGREE);
 }
+

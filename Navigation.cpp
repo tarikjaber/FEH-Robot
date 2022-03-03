@@ -47,19 +47,22 @@ double inches_to_counts(double inches) {
 }
 
 void move_counts(double counts, double left_speed, double right_speed) {
-    double current_left_speed = left_speed;
-    double current_right_speed = right_speed;
+    set_left_percent(left_speed);
+    set_right_percent(right_speed);
 
-    set_left_percent(current_left_speed);
-    set_right_percent(current_right_speed);
+    int index = 0;
+    int sum_left_counts = 1;
+    int sum_right_counts = 1;
 
     while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
-        if (left_encoder.Counts() < right_encoder.Counts()) {
-            current_left_speed *= 1.01;
-        } else if (left_encoder.Counts() > right_encoder.Counts()) {
-            current_left_speed *= 0.99;
-        }
-        set_left_percent(current_left_speed);
+        sum_left_counts += left_encoder.Counts();
+        sum_right_counts += right_encoder.Counts();
+
+        double sum_counts = sum_left_counts + sum_right_counts;
+        double left_correction_factor = 1 + (sum_right_counts - sum_left_counts) / sum_counts;
+
+        index++;
+        set_left_percent(left_speed * left_correction_factor);
     }
 }
 
