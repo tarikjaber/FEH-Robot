@@ -9,32 +9,32 @@ DigitalEncoder right_encoder(FEHIO::P2_7);
 //* Test Code
 void test_navigation() {
     move_forward(12);
-    LCD.Write("forward: ");
+    LCD.Write("Forward: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_right(90);
-    LCD.Write("right: ");
+    LCD.Write("Right: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_left(90);
-    LCD.Write("left: ");
+    LCD.Write("Left: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_left(90);
-    LCD.Write("left: ");
+    LCD.Write("Left: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_right(90);
-    LCD.Write("right: ");
+    LCD.Write("Right: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     move_back(12);
-    LCD.Write("back: ");
+    LCD.Write("Back: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
 }
