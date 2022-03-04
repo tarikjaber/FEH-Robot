@@ -10,7 +10,7 @@
 #define TRANSITIONS_PER_REVOLUTION 318
 #define COUNTS_PER_DEGREE 2.40
 #define STRAIGHT_SPEED_PERCENT 30.0
-#define RIGHT_CORRECTION_FACTOR 1.00
+#define RIGHT_CORRECTION_FACTOR 1.018
 
 extern FEHMotor left_motor;
 extern FEHMotor right_motor;

@@ -27,7 +27,70 @@ int main() {
     back_servo.SetDegree(0);
     Sleep(1.0);
     horizontal_servo.SetDegree(0);
-    test_navigation();
+    wait_for_light();
+
+    move_forward(13);
+    turn_right(45);
+    move_forward(40, 40);
+    turn_right(65);
+    move_back(13.5);
+    horizontal_servo.SetDegree(160);
+    turn_left(55);
+    move_back(2);
+    move_back(8);
+    
+    back_servo.SetDegree(160);
+    move_forward(5);
+    turn_right(90);
+    back_servo.SetDegree(0);
+    horizontal_servo.SetDegree(134);
+    move_forward(20);
+    turn_left(90);
+    move_back(11);
+    Sleep(2.0);
+    horizontal_servo.SetDegree(10);
+    Sleep(1.0);
+    horizontal_servo.SetDegree(100);
+    turn_right(20);
+
+    move_forward(30);
+    Sleep(.5);
+    horizontal_servo.SetDegree(10);
+    horizontal_servo.SetDegree(100);
+
+
+
+    // deposit_tray();
+
+    // horizontal_servo.SetDegree(150);
+    // Sleep(1.5);
+    // horizontal_servo.SetDegree(0);
+    // horizontal_servo.TouchCalibrate();
+    //  LCD.WriteLine("test");
+    //  back_servo.SetMax(BACK_SERVO_MAX);
+    //  back_servo.SetMin(BACK_SERVO_MIN);
+
+    // while(true) {
+    // back_servo.SetDegree(0);
+    // Sleep(0.5);
+    // back_servo.SetDegree(180);
+    // Sleep(0.5);
+    // }
+    // horizontal_servo.TouchCalibrate();
+    //  move_forward(10);
+    //  turn_right(45);
+    //  move_forward(20, 60);
+    //  turn_left(90);
+    //  move_forward(6);
+    //  turn_right(90);
+    //  drop_back_arm();
+    //  move_forward(2);
+    //  reset_back_arm();
+    //  turn_right(90);
+    //  move_forward(25);
+    //  turn_right(90);
+
+    // move_back(14);
 
     return 0;
 }
