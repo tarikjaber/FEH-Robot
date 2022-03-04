@@ -9,26 +9,32 @@ DigitalEncoder right_encoder(FEHIO::P2_7);
 //* Test Code
 void test_navigation() {
     move_forward(12);
+    LCD.Write("forward: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_right(90);
+    LCD.Write("right: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_left(90);
+    LCD.Write("left: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_left(90);
+    LCD.Write("left: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     turn_right(90);
+    LCD.Write("right: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
     Sleep(1.0);
     move_back(12);
+    LCD.Write("back: ");
     LCD.WriteLine(left_encoder.Counts());
     LCD.WriteLine(right_encoder.Counts());
 }
@@ -50,18 +56,16 @@ void move_counts(double counts, double left_speed, double right_speed) {
     set_left_percent(left_speed);
     set_right_percent(right_speed);
 
-    int index = 0;
-    int sum_left_counts = 1;
-    int sum_right_counts = 1;
+    int sum_left_counts = 50;
+    int sum_right_counts = 50;
 
     while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
         sum_left_counts += left_encoder.Counts();
         sum_right_counts += right_encoder.Counts();
 
         double sum_counts = sum_left_counts + sum_right_counts;
-        double left_correction_factor = 1 + (sum_right_counts - sum_left_counts) / sum_counts;
 
-        index++;
+        double left_correction_factor = 1 + (right_encoder.Counts() - left_encoder.Counts()) / 100;
         set_left_percent(left_speed * left_correction_factor);
     }
 }
