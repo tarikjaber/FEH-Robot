@@ -18,6 +18,14 @@ extern FEHMotor right_motor;
 extern DigitalEncoder left_encoder;
 extern DigitalEncoder right_encoder;
 
+enum Direction
+{
+    FORWARD,
+    BACKWARD,
+    RIGHT,
+    LEFT
+};
+
 // Testing
 void test_navigation();
 // Encoders
@@ -34,6 +42,7 @@ void set_left_percent(double);
 void set_right_percent(double);
 void turn_with_angle(double, double);
 void stop();
+void move_time(double, Direction);
 void move_forward(double);
 void move_forward(double, double);
 void move_forward(double, double, double);

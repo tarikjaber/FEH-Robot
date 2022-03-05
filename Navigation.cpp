@@ -132,6 +132,24 @@ void turn_with_angle(double inches, double degrees) {
     stop();
 }
 
+// Forward Functions
+void move_time(double time, Direction direction) {
+    if (direction == FORWARD) {
+        set_both(STRAIGHT_SPEED_PERCENT);
+    } else if (direction == BACKWARD) {
+        set_both(-STRAIGHT_SPEED_PERCENT);
+    } else if (direction == LEFT) {
+        set_right_percent(STRAIGHT_SPEED_PERCENT);
+        set_left_percent(-STRAIGHT_SPEED_PERCENT);
+    } else if (direction == RIGHT) {
+        set_right_percent(-STRAIGHT_SPEED_PERCENT);
+        set_left_percent(STRAIGHT_SPEED_PERCENT);
+    }
+
+    Sleep(time);
+    stop();
+}
+
 void move_forward(double inches) {
     move_forward(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
 }
@@ -149,6 +167,7 @@ void move_forward(double inches, double left_speed, double right_speed) {
     stop();
 }
 
+// Backward Functions
 void move_back(double inches) {
     move_back(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
 }

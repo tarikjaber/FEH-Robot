@@ -12,6 +12,9 @@ void slide_ticket();
 int main() {
     set_up_servos();
 
+    int test = FORWARD;
+
+    move_time(5.0, FORWARD);
     deposit_tray();
     slide_ticket();
 
