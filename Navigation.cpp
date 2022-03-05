@@ -124,7 +124,11 @@ void turn_with_angle(double inches, double degrees) {
         left_wheel_percent -= degrees;
     }
 
-    move_counts(total_counts, left_wheel_percent, right_wheel_percent);
+    set_left_percent(left_wheel_percent);
+    set_right_percent(right_wheel_percent);
+
+    while ((left_encoder.Counts() + right_encoder.Counts()) / 2 < total_counts) {}
+
     stop();
 }
 
