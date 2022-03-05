@@ -23,13 +23,16 @@ void set_up_servos() {
     side_servo.SetMax(SIDE_SERVO_MAX);
     back_servo.SetMin(BACK_SERVO_MIN);
     back_servo.SetMax(BACK_SERVO_MAX);
+
+    reset_servos();
 }
 
 // All Arms
-void reset_arms() {
+void reset_servos() {
+    open_horizontal_arm();
     reset_back_arm();
     reset_horizontal_arm();
-    reset_horizontal_arm();
+    reset_side_arm();
 }
 
 // Back Arm
@@ -43,7 +46,7 @@ void reset_back_arm() {
 
 // Side Arm
 void drop_side_arm() {
-
+    side_servo.SetDegree(180);
 }
 
 void reset_side_arm() {
@@ -52,7 +55,7 @@ void reset_side_arm() {
 
 // Horizontal Arm
 void open_horizontal_arm() {
-
+    horizontal_servo.SetDegree(HORIZONTAL_ACTIVE_DEGREE);
 }
 
 void reset_horizontal_arm() {

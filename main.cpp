@@ -10,15 +10,18 @@ void deposit_tray();
 void slide_ticket();
 
 int main() {
+    set_up_servos();
+
     deposit_tray();
     slide_ticket();
 
+    reset_servos();
     return 0;
 }
 
 void deposit_tray() {
-    set_up_servos();
     back_servo.SetDegree(0);
+    
     Sleep(1.0);
     horizontal_servo.SetDegree(0);
     wait_for_light();

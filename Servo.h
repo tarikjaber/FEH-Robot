@@ -10,8 +10,8 @@ extern FEHServo back_servo;
 // Horizontal Servo
 #define HORIZONTAL_SERVO_MIN 960
 #define HORIZONTAL_SERVO_MAX 2289
-#define HORIZONTAL_REST_DEGREE 40
-#define HORIZONTAL_ACTIVE_DEGREE 40
+#define HORIZONTAL_REST_DEGREE 0
+#define HORIZONTAL_ACTIVE_DEGREE 180
 // Side Servo
 #define SIDE_SERVO_MIN 500
 #define SIDE_SERVO_MAX 2400
@@ -19,8 +19,8 @@ extern FEHServo back_servo;
 // Back Servo
 #define BACK_SERVO_MIN 656
 #define BACK_SERVO_MAX 1700
-#define BACK_REST_DEGREE 10
-#define BACK_ACTIVE_DEGREE 10
+#define BACK_REST_DEGREE 0
+#define BACK_ACTIVE_DEGREE 180
 
 // Calibration and Set Up
 void calibrate_horizontal();
@@ -28,7 +28,7 @@ void calibrate_side();
 void calibrate_back();
 void set_up_servos();
 // All Arms
-void reset_arms();
+void reset_servos();
 // Back Arm
 void drop_back_arm();
 void reset_back_arm();
