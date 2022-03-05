@@ -6,23 +6,17 @@
 #include "LineFollowing.h"
 
 void hit_jukebox_button();
-
-void slide_ticket() {
-    back_servo.SetDegree(0);
-    Sleep(1.0);
-    horizontal_servo.SetDegree(150);
-    Sleep(1.0);
-    horizontal_servo.SetDegree(10);
-}
-
-void deposit_tray() {
-    horizontal_servo.SetDegree(160);
-    Sleep(1.0);
-    back_servo.SetDegree(180);
-    //move_forward(2);
-}
+void deposit_tray();
+void slide_ticket();
 
 int main() {
+    deposite_tray();
+    slide_ticket();
+
+    return 0;
+}
+
+void deposite_tray() {
     set_up_servos();
     back_servo.SetDegree(0);
     Sleep(1.0);
@@ -36,11 +30,13 @@ int main() {
     move_back(13.5);
     horizontal_servo.SetDegree(160);
     turn_left(55);
-    move_back(2);
-    move_back(8);
+    move_back(10);
     
     back_servo.SetDegree(160);
     move_forward(5);
+}
+
+void slide_ticket() {
     turn_right(90);
     back_servo.SetDegree(0);
     horizontal_servo.SetDegree(134);
@@ -57,42 +53,6 @@ int main() {
     Sleep(.5);
     horizontal_servo.SetDegree(10);
     horizontal_servo.SetDegree(100);
-
-
-
-    // deposit_tray();
-
-    // horizontal_servo.SetDegree(150);
-    // Sleep(1.5);
-    // horizontal_servo.SetDegree(0);
-    // horizontal_servo.TouchCalibrate();
-    //  LCD.WriteLine("test");
-    //  back_servo.SetMax(BACK_SERVO_MAX);
-    //  back_servo.SetMin(BACK_SERVO_MIN);
-
-    // while(true) {
-    // back_servo.SetDegree(0);
-    // Sleep(0.5);
-    // back_servo.SetDegree(180);
-    // Sleep(0.5);
-    // }
-    // horizontal_servo.TouchCalibrate();
-    //  move_forward(10);
-    //  turn_right(45);
-    //  move_forward(20, 60);
-    //  turn_left(90);
-    //  move_forward(6);
-    //  turn_right(90);
-    //  drop_back_arm();
-    //  move_forward(2);
-    //  reset_back_arm();
-    //  turn_right(90);
-    //  move_forward(25);
-    //  turn_right(90);
-
-    // move_back(14);
-
-    return 0;
 }
 
 void hit_jukebox_button() {
