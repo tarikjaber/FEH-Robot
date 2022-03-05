@@ -65,7 +65,7 @@ void move_counts(double counts, double left_speed, double right_speed) {
 
         double sum_counts = sum_left_counts + sum_right_counts;
 
-        double left_correction_factor = 1 + (sum_right_counts - sum_left_counts) / (sum_counts);
+        double left_correction_factor = sum_right_counts / sum_left_counts;
         set_left_percent(left_speed * left_correction_factor);
     }
 }
