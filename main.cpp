@@ -10,13 +10,13 @@ void deposit_tray();
 void slide_ticket();
 
 int main() {
-    deposite_tray();
+    deposit_tray();
     slide_ticket();
 
     return 0;
 }
 
-void deposite_tray() {
+void deposit_tray() {
     set_up_servos();
     back_servo.SetDegree(0);
     Sleep(1.0);
