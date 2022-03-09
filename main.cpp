@@ -1,13 +1,10 @@
 #include <FEHLCD.h>
-<<<<<<< HEAD
-=======
-#include <FEHRPS.h>
->>>>>>> 3cc4fa18e7d9bff801822d977383f38cba2aa09c
 #include "Navigation.h"
 #include "Sensor.h"
 #include "Battery.h"
 #include "Servo.h"
 #include "LineFollowing.h"
+#include "RPS.h"
 
 void hit_jukebox_button();
 void deposit_tray();
@@ -16,6 +13,7 @@ void burgerflip();
 void icecream();
 
 int main() {
+    RPS.InitializeTouchMenu();
     set_up_servos();
 
     int test = FORWARD;
