@@ -13,8 +13,8 @@ extern FEHServo back_servo;
 #define HORIZONTAL_REST_DEGREE 0
 #define HORIZONTAL_ACTIVE_DEGREE 180
 // Side Servo
-#define SIDE_SERVO_MIN 500
-#define SIDE_SERVO_MAX 2400
+#define SIDE_SERVO_MIN 1600
+#define SIDE_SERVO_MAX 2380
 #define SIDE_REST_DEGREE 10
 // Back Servo
 #define BACK_SERVO_MIN 656

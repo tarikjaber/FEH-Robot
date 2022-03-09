@@ -1,4 +1,5 @@
 #include <FEHLCD.h>
+#include <FEHRPS.h>
 #include "Navigation.h"
 #include "Sensor.h"
 #include "Battery.h"
@@ -10,16 +11,34 @@ void deposit_tray();
 void slide_ticket();
 
 int main() {
+    //set_up_servos();
     set_up_servos();
+    side_servo.SetDegree(180);
+    Sleep(1.0);
+    side_servo.SetDegree(110);
+    //RPS.InitializeTouchMenu();
+    // set_up_servos();
+    // test_navigation();
+    // reset_servos();
 
-    int test = FORWARD;
+    // set_up_servos();
 
-    move_time(5.0, FORWARD);
-    deposit_tray();
-    slide_ticket();
+    // int test = FORWARD;
 
-    reset_servos();
+    // move_time(5.0, FORWARD);
+    // deposit_tray();
+    // slide_ticket();
+
+    // reset_servos();
     return 0;
+}
+
+void flip_ice_cream() {
+
+}
+
+void flip_burger() {
+    
 }
 
 void deposit_tray() {

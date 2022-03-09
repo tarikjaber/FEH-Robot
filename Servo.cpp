@@ -1,7 +1,7 @@
 #include "Servo.h"
 
 FEHServo horizontal_servo(FEHServo::Servo1); 
-FEHServo side_servo(FEHServo::Servo6); 
+FEHServo side_servo(FEHServo::Servo5); 
 FEHServo back_servo(FEHServo::Servo7);
 
 void calibrate_horizontal() {
