@@ -3,8 +3,8 @@
 FEHMotor left_motor(FEHMotor::Motor0, 9.0);
 FEHMotor right_motor(FEHMotor::Motor1, 9.0);
 
-DigitalEncoder left_encoder(FEHIO::P1_0);
-DigitalEncoder right_encoder(FEHIO::P2_7);
+DigitalEncoder left_encoder(FEHIO::P2_7);
+DigitalEncoder right_encoder(FEHIO::P1_0);
 
 //* Test Code
 void test_navigation() {
@@ -64,9 +64,19 @@ void move_counts(double counts, double left_speed, double right_speed) {
         sum_right_counts += right_encoder.Counts();
 
         double sum_counts = sum_left_counts + sum_right_counts;
-
-        double left_correction_factor = sum_right_counts / sum_left_counts;
+        double left_correction_factor = (right_encoder.Counts() + 0.01) / (left_encoder.Counts() + 0.01);
         set_left_percent(left_speed * left_correction_factor);
+
+        // if (sum_right_counts > sum_left_counts) {
+        //     double left_correction_factor = sum_right_counts / sum_left_counts;
+        //     set_left_percent(left_speed * left_correction_factor);
+        //     set_right_percent(right_speed);
+        // } else if (sum_right_counts < sum_left_counts) {
+        //     double right_correction_factor = sum_left_counts / sum_right_counts;
+        //     set_left_percent(left_speed * right_correction_factor);
+        //     set_left_percent(left_speed);
+        // }
+        
     }
 }
 
