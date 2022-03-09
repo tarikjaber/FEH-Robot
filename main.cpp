@@ -9,6 +9,7 @@
 void hit_jukebox_button();
 void deposit_tray();
 void slide_ticket();
+HELLO HELLO HELLO HELLO HELLO
 
 int main() {
     //set_up_servos();
