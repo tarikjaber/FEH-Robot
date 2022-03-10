@@ -6,6 +6,7 @@
 #include "LineFollowing.h"
 #include "RPS.h"
 
+void initialize();
 void hit_jukebox_button();
 void deposit_tray();
 void slide_ticket();
@@ -14,8 +15,7 @@ void flip_ice_cream();
 
 int main() {
     // Set Up
-    RPS.InitializeTouchMenu();
-    set_up_servos();
+    initialize();
 
     // Body
     flip_burger();
@@ -165,4 +165,9 @@ void hit_jukebox_button() {
     move_forward(30, 50, 53);
     Sleep(1.5);
     move_back(30, 50, 53);
+}
+
+void initialize() {
+    RPS.InitializeTouchMenu();
+    set_up_servos();
 }
