@@ -7,5 +7,4 @@ int get_ice_cream();
 void update_x(double);
 void update_y(double);
 
-
 #endif

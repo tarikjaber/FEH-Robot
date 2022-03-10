@@ -1,10 +1,4 @@
 #include "RPS.h"
-#include <FEHLCD.h>
-#include <FEHIO.h>
-#include <FEHUtility.h>
-#include <FEHMotor.h>
-#include <FEHRPS.h>
-#include <FEHSD.h>
 #include "Navigation.h"
 
 // RPS Delay time
@@ -30,14 +24,6 @@
  */
 int get_ice_cream() {
     return RPS.GetIceCream();
-}
-
-void update_x(double x) {
-
-}
-
-void update_y(double y) {
-    
 }
 
 void pulse_forward(int percent, float seconds) 
