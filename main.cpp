@@ -46,11 +46,11 @@ void flip_burger() {
 }
 
 void flip_ice_cream() {
-    // Moving back and lifting side arm, and Correcting x-coordinate
+    // Moving back, Lifting side arm, and Correcting x-coordinate
     move_back(10);
     side_servo.SetDegree(180);
     correct_x(20);
-    // Getting into position and flipping the ice cream lever
+    // Getting into position and Flipping the ice cream lever
     turn_left(45);
     move_back(6);
     side_servo.SetDegree(110);
