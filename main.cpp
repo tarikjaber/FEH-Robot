@@ -33,9 +33,11 @@ void flip_burger() {
     turn_right(45);
     side_servo.SetDegree(180);
     move_forward(40, 40);
-    // Turning into burger tray
+    // Correcting the y-coordinate of the robot using RPS
+    correct_y(68);
+    // Turning into burger tray and Correction x-coordinate
     turn_right(90);
-    move_forward(2);
+    correct_x(26);
     side_servo.SetDegree(0);
     move_forward(4);
     // Lifting burger tray and flipping
@@ -44,9 +46,10 @@ void flip_burger() {
 }
 
 void flip_ice_cream() {
-    // Moving back and lifting side arm
+    // Moving back and lifting side arm, and Correcting x-coordinate
     move_back(10);
     side_servo.SetDegree(180);
+    correct_x(20);
     // Getting into position and flipping the ice cream lever
     turn_left(45);
     move_back(6);
