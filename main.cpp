@@ -35,8 +35,9 @@ void flip_burger() {
     move_forward(40, 40);
     // Correcting the y-coordinate of the robot using RPS
     correct_y(68);
-    // Turning into burger tray and Correction x-coordinate
+    // Turning into burger tray, Correctiong x-coordinate and heading
     turn_right(90);
+    correct_heading(0);
     correct_x(26);
     side_servo.SetDegree(0);
     move_forward(4);
