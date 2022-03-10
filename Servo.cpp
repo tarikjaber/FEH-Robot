@@ -46,7 +46,7 @@ void reset_back_arm() {
 
 // Side Arm
 void drop_side_arm() {
-    side_servo.SetDegree(180);
+    side_servo.SetDegree(SIDE_ACTIVE_DEGREE);
 }
 
 void reset_side_arm() {

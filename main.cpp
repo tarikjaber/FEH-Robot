@@ -9,38 +9,50 @@
 void hit_jukebox_button();
 void deposit_tray();
 void slide_ticket();
-void burgerflip();
-void icecream();
+void flip_burger();
+void flip_ice_cream();
 
 int main() {
+    // Set Up
     RPS.InitializeTouchMenu();
     set_up_servos();
 
-    int test = FORWARD;
+    // Body
+    flip_burger();
+    flip_ice_cream();
 
-    move_time(5.0, FORWARD);
-    deposit_tray();
-    slide_ticket();
-
+    // Resetting servos and exiting main
     reset_servos();
     return 0;
 }
 
-void burgerflip() {
+void flip_burger() {
+    // Wait for light and drive up ramp
     wait_for_light();
-
     move_forward(13);
     turn_right(45);
-    side_servo.SetDegree(100);
+    side_servo.SetDegree(180);
     move_forward(40, 40);
+    // Turning into burger tray
     turn_right(90);
     move_forward(2);
-    side_servo.SetDegree(10);
+    side_servo.SetDegree(0);
+    move_forward(4);
+    // Lifting burger tray and flipping
+    side_servo.SetDegree(90);
+    move_forward(4);
 }
 
-void icecream() {
+void flip_ice_cream() {
+    // Moving back and lifting side arm
     move_back(10);
+    side_servo.SetDegree(180);
+    // Getting into position and flipping the ice cream lever
+    turn_left(45);
+    move_back(6);
+    side_servo.SetDegree(110);
 }
+
 void deposit_tray() {
     back_servo.SetDegree(0);
     
