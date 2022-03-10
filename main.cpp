@@ -50,7 +50,7 @@ void flip_ice_cream() {
     move_back(10);
     side_servo.SetDegree(180);
     correct_x(20);
-    // Getting into position and Flipping the ice cream lever
+    // Getting into position and Flipping the ice cream lever down
     turn_left(45);
     move_back(6);
     side_servo.SetDegree(110);
