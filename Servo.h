@@ -33,12 +33,15 @@ void reset_servos();
 // Back Arm
 void drop_back_arm();
 void reset_back_arm();
+void set_back_percent();
 // Side Arm
 void drop_side_arm();
 void reset_side_arm();
+void set_side_percent();
 // Horizontal Arm
 void swipe_horizontal();
 void open_horizontal_arm();
 void reset_horizontal_arm();
+void set_horizontal_percent();
 
 #endif
