@@ -104,14 +104,14 @@ void correct_y(float y_coordinate)
     }
 
     // Check if receiving proper RPS coordinates and whether the robot is within an acceptable range
-    while((RPS.Y() >= 0) && (RPS.Y() < y_coordinate - 1 || RPS.Y() > y_coordinate + 1))
+    while((RPS.Y() >= 0) && (RPS.Y() < y_coordinate - 0.6 || RPS.Y() > y_coordinate + 0.6))
     {
-        if(RPS.Y() > y_coordinate + 1)
+        if(RPS.Y() > y_coordinate + 0.6)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_forward(-power, PULSE_TIME);
         }
-        else if(RPS.Y() < y_coordinate - 1)
+        else if(RPS.Y() < y_coordinate - 0.6)
         {
             // Pulse the motors for a short duration in the correct direction
            pulse_forward(power, PULSE_TIME);
@@ -125,14 +125,14 @@ void correct_y(float y_coordinate)
  */
 void correct_heading(float heading)
 {
-   while((RPS.Heading() >= 0) && (RPS.Heading() < heading - 1 || RPS.Heading() > heading + 1))
+   while((RPS.Heading() >= 0) && (RPS.Heading() < heading - 0.6 || RPS.Heading() > heading + 0.6))
     {
-        if(RPS.Y() > heading + 1)
+        if(RPS.Y() > heading + 0.6)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_counterclockwise(-PULSE_POWER, PULSE_TIME);
         }
-        else if(RPS.Y() < heading - 1)
+        else if(RPS.Y() < heading - 0.6)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_counterclockwise(PULSE_POWER, PULSE_TIME);

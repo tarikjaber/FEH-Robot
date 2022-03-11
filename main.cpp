@@ -32,29 +32,46 @@ void flip_burger() {
     move_forward(13);
     turn_right(45);
     side_servo.SetDegree(180);
-    move_forward(40, 40);
+    move_forward(45, 50);
+    Sleep(1.0);
     // Correcting the y-coordinate of the robot using RPS
-    correct_y(68);
+    //correct_y(68);
+    Sleep(1.0);
     // Turning into burger tray, Correctiong x-coordinate and heading
-    turn_right(90);
-    correct_heading(0);
-    correct_x(26);
+    turn_right(88);
+    Sleep(1.0);
+    //correct_heading(0);
+    move_back(3.7);
+    Sleep(1.0);
+    //correct_x(26);
     side_servo.SetDegree(0);
-    move_forward(4);
-    // Lifting burger tray and flipping
+    move_forward(2.4, 20);
+    side_servo.SetDegree(80);
+    turn_right(10);
+    move_forward(5,50);
+    side_servo.SetDegree(180);
+    turn_right(10);
+    move_time(1.2, FORWARD);
+    move_back(2);
+    side_servo.SetDegree(180);
+    turn_right(15);
+    move_time(2, FORWARD);
     side_servo.SetDegree(90);
-    move_forward(4);
+    move_back(7);
 }
 
 void flip_ice_cream() {
     // Moving back, Lifting side arm, and Correcting x-coordinate
-    move_back(10);
+    move_back(7.5);
     side_servo.SetDegree(180);
-    correct_x(20);
     // Getting into position and Flipping the ice cream lever down
-    turn_left(45);
-    move_back(6);
-    side_servo.SetDegree(110);
+    turn_left(50);
+    move_back(5.5);
+    LCD.WriteLine("About to lower side arm");
+    Sleep(1.0);
+    side_servo.SetDegree(70);
+    LCD.WriteLine("FINISHED");
+    Sleep(5.0);
 }
 
 void deposit_tray() {
@@ -169,6 +186,6 @@ void hit_jukebox_button() {
 }
 
 void initialize() {
-    RPS.InitializeTouchMenu();
+    //RPS.InitializeTouchMenu();
     set_up_servos();
 }

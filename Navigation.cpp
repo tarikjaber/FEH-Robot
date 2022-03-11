@@ -56,16 +56,25 @@ void move_counts(double counts, double left_speed, double right_speed) {
     set_left_percent(left_speed);
     set_right_percent(right_speed);
 
-    int sum_left_counts = 50;
-    int sum_right_counts = 50;
+    // int sum_left_counts = 50;
+    // int sum_right_counts = 50;
 
     while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
-        sum_left_counts += left_encoder.Counts();
-        sum_right_counts += right_encoder.Counts();
+        // sum_left_counts += left_encoder.Counts();
+        // sum_right_counts += right_encoder.Counts();
 
-        double sum_counts = sum_left_counts + sum_right_counts;
-        double left_correction_factor = (right_encoder.Counts() + 0.01) / (left_encoder.Counts() + 0.01);
-        set_left_percent(left_speed * left_correction_factor);
+        //double sum_counts = sum_left_counts + sum_right_counts;
+        double correction_factor = (right_encoder.Counts() + 1) / (left_encoder.Counts() + 1);
+        //set_left_percent(left_speed * correction_factor);
+
+        // if (correction_factor > 1) {
+        //     set_left_percent(left_speed * correction_factor);
+        //     set_right_percent(right_speed);
+        // } else if (correction_factor < 1) {
+        //     set_right_percent(right_speed * (1 / correction_factor));
+        //     set_right_percent(left_speed);
+        // }
+        
 
         // if (sum_right_counts > sum_left_counts) {
         //     double left_correction_factor = sum_right_counts / sum_left_counts;
