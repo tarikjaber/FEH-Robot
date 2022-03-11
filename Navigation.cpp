@@ -64,8 +64,8 @@ void move_counts(double counts, double left_speed, double right_speed) {
         // sum_right_counts += right_encoder.Counts();
 
         //double sum_counts = sum_left_counts + sum_right_counts;
-        double correction_factor = (right_encoder.Counts() + 1) / (left_encoder.Counts() + 1);
-        //set_left_percent(left_speed * correction_factor);
+        double correction_factor = (right_encoder.Counts() + 1.0) / (left_encoder.Counts() + 1.0);
+        set_left_percent(left_speed * correction_factor);
 
         // if (correction_factor > 1) {
         //     set_left_percent(left_speed * correction_factor);

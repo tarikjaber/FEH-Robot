@@ -30,9 +30,10 @@ void flip_burger() {
     // Wait for light and drive up ramp
     wait_for_light();
     move_forward(13);
-    turn_right(45);
+    turn_right(48);
+    Sleep(0.5);
     side_servo.SetDegree(180);
-    move_forward(45, 50);
+    move_forward(45.2, 50);
     Sleep(1.0);
     // Correcting the y-coordinate of the robot using RPS
     //correct_y(68);
@@ -51,22 +52,22 @@ void flip_burger() {
     move_forward(5,50);
     side_servo.SetDegree(180);
     turn_right(10);
-    move_time(1.2, FORWARD);
-    move_back(2);
+    move_time(1.4, FORWARD);
+    move_back(2.7);
     side_servo.SetDegree(180);
-    turn_right(15);
+    turn_right(18);
     move_time(2, FORWARD);
-    side_servo.SetDegree(90);
+    side_servo.SetDegree(120);
     move_back(7);
 }
 
 void flip_ice_cream() {
     // Moving back, Lifting side arm, and Correcting x-coordinate
-    move_back(7.5);
+    move_back(9.5);
     side_servo.SetDegree(180);
     // Getting into position and Flipping the ice cream lever down
     turn_left(50);
-    move_back(5.5);
+    move_back(6.5);
     LCD.WriteLine("About to lower side arm");
     Sleep(1.0);
     side_servo.SetDegree(70);
