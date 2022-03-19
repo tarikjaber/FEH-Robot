@@ -18,28 +18,34 @@ void write_counts() {
 }
 
 void test_navigation() {
+    // Forward 12 inches
     move_forward(12);
-    LCD.Write("Forward: ");
+    LCD.Write("Forward______________");
     write_counts();
     Sleep(1.0);
+    // 90 degree right turn
     turn_right(90);
-    LCD.Write("Right: ");
+    LCD.Write("Right________________");
     write_counts();
     Sleep(1.0);
+    // 90 degree left turn
     turn_left(90);
-    LCD.Write("Left: ");
+    LCD.Write("Left_________________");
     write_counts();
     Sleep(1.0);
+    // 90 degree left turn
     turn_left(90);
-    LCD.Write("Left: ");
+    LCD.Write("Left_________________");
     write_counts();
     Sleep(1.0);
+    // 90 degree right turn
     turn_right(90);
-    LCD.Write("Right: ");
+    LCD.Write("Right________________");
     write_counts();
     Sleep(1.0);
+    // Back 12 inches
     move_back(12);
-    LCD.Write("Back: ");
+    LCD.Write("Back_________________");
     write_counts();
 }
 //* Encoder Functions

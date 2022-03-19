@@ -36,8 +36,7 @@ void pulse_counterclockwise(int percent, float seconds)
     Sleep(seconds);
 
     // Turn off motors
-    right_motor.Stop();
-    left_motor.Stop();
+    stop();
 }
 
 /*

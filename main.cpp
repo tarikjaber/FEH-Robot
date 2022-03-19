@@ -167,8 +167,7 @@ void hit_jukebox_button() {
     move_back(20.0);
     turn_right(45.0);
 
-    set_left_percent(20.0);
-    set_right_percent(20.0);
+    set_both(20.0);
 
     wait_for_light();
 
@@ -190,7 +189,6 @@ void hit_jukebox_button() {
         move_forward(4);
         turn_left(25.0);
 
-        //move_forward(3);
         set_left_percent(20.0);
         set_right_percent(20.0);
         Sleep(2.0);
