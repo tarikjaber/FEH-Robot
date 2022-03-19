@@ -28,8 +28,6 @@ int main() {
     return 0;
 }
 
-
-
 void flip_right_ice_cream() {
     // Angle towards ramp
     move_forward(10);

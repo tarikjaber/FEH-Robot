@@ -29,6 +29,7 @@ enum Direction
 
 // Testing
 void test_navigation();
+void write_counts();
 // Encoders
 double inches_to_counts(double);
 void reset_encoder_counts();

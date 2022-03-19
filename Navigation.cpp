@@ -1,4 +1,7 @@
 #include "Navigation.h"
+#include <string>
+
+using namespace std;
 
 FEHMotor left_motor(FEHMotor::Motor0, 9.0);
 FEHMotor right_motor(FEHMotor::Motor1, 9.0);
@@ -7,36 +10,37 @@ DigitalEncoder left_encoder(FEHIO::P2_7);
 DigitalEncoder right_encoder(FEHIO::P1_0);
 
 //* Test Code
+void write_counts() {
+    LCD.Write("Right: ");
+    LCD.WriteLine(right_encoder.Counts());
+    LCD.Write("Left:  ");
+    LCD.WriteLine(left_encoder.Counts());
+}
+
 void test_navigation() {
     move_forward(12);
     LCD.Write("Forward: ");
-    LCD.WriteLine(left_encoder.Counts());
-    LCD.WriteLine(right_encoder.Counts());
+    write_counts();
     Sleep(1.0);
     turn_right(90);
     LCD.Write("Right: ");
-    LCD.WriteLine(left_encoder.Counts());
-    LCD.WriteLine(right_encoder.Counts());
+    write_counts();
     Sleep(1.0);
     turn_left(90);
     LCD.Write("Left: ");
-    LCD.WriteLine(left_encoder.Counts());
-    LCD.WriteLine(right_encoder.Counts());
+    write_counts();
     Sleep(1.0);
     turn_left(90);
     LCD.Write("Left: ");
-    LCD.WriteLine(left_encoder.Counts());
-    LCD.WriteLine(right_encoder.Counts());
+    write_counts();
     Sleep(1.0);
     turn_right(90);
     LCD.Write("Right: ");
-    LCD.WriteLine(left_encoder.Counts());
-    LCD.WriteLine(right_encoder.Counts());
+    write_counts();
     Sleep(1.0);
     move_back(12);
     LCD.Write("Back: ");
-    LCD.WriteLine(left_encoder.Counts());
-    LCD.WriteLine(right_encoder.Counts());
+    write_counts();
 }
 //* Encoder Functions
 void reset_encoder_counts() {
