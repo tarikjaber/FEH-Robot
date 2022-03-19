@@ -12,18 +12,67 @@ void deposit_tray();
 void slide_ticket();
 void flip_burger();
 void flip_ice_cream();
+void flip_right_ice_cream();
+void hit_final_button();
 
 int main() {
     // Set Up
     initialize();
 
     // Body
-    flip_burger();
-    flip_ice_cream();
+    flip_right_ice_cream();
+    hit_final_button();
 
     // Resetting servos and exiting main
     reset_servos();
     return 0;
+}
+
+
+
+void flip_right_ice_cream() {
+    // Angle towards ramp
+    move_forward(10);
+    turn_right(45);
+    // Go up the ramp
+    move_forward(30, 30);
+    // Turning to get right of the ice cream levers
+    turn_left(45);
+    move_forward(6);
+    // Getting angled with levers
+    turn_right(45);
+    move_forward(5);
+    turn_right(45);
+    // Getting ice cream flavor
+    int flavor = get_ice_cream();
+    // Raising side arm to maximum
+    set_side_percent(0);
+    // Calculating necessary distance to reach lever depending on the flavor
+    int distance = flavor * 3 + 1.5;
+    move_forward(distance);
+    // Lowering the arm, moving back to wait, and lifting the lever
+    set_side_percent(40);
+    Sleep(0.8);
+    set_side_percent(0);
+    move_back(1.5);
+    Sleep(7.0);
+    set_side_percent(60);
+    move_forward(1.5);
+    set_side_percent(80);
+    // Moving back to initial location should
+    move_back(distance);
+}
+
+void hit_final_button() {
+    // Angling with the ramp
+    turn_left(135);
+    move_back(15);
+    turn_left(90);
+    // Going down the ramp
+    move_forward(30);
+    // Hitting final button
+    turn_left(45);
+    move_forward(15);
 }
 
 void flip_burger() {
@@ -187,6 +236,6 @@ void hit_jukebox_button() {
 }
 
 void initialize() {
-    //RPS.InitializeTouchMenu();
+    RPS.InitializeTouchMenu();
     set_up_servos();
 }
