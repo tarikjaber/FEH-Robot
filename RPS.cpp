@@ -29,8 +29,8 @@ void pulse_forward(int percent, float seconds)
 void pulse_counterclockwise(int percent, float seconds) 
 {
     // Set both motors to desired percent
-    right_motor.SetPercent(percent);
-    left_motor.SetPercent(-percent);
+    set_right_percent(percent);
+    set_left_percent(-percent);
 
     // Wait for the correct number of seconds
     Sleep(seconds);
@@ -48,8 +48,8 @@ void turn_counterclockwise(int percent, int counts)
     reset_encoder_counts();
 
     // Set both motors to desired percent
-    right_motor.SetPercent(percent);
-    left_motor.SetPercent(-percent);
+    set_right_percent(percent);
+    set_left_percent(-percent);
 
     // While the average of the left and right encoder are less than counts,
     // keep running motors
@@ -126,12 +126,12 @@ void correct_heading(float heading)
 {
    while((RPS.Heading() >= 0) && (RPS.Heading() < heading - 0.6 || RPS.Heading() > heading + 0.6))
     {
-        if(RPS.Y() > heading + 0.6)
+        if(RPS.Heading() > heading + 0.6)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_counterclockwise(-PULSE_POWER, PULSE_TIME);
         }
-        else if(RPS.Y() < heading - 0.6)
+        else if(RPS.Heading() < heading - 0.6)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_counterclockwise(PULSE_POWER, PULSE_TIME);

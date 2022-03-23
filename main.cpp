@@ -36,10 +36,13 @@ void flip_right_ice_cream() {
     turn_right(45);
     // Go up the ramp
     move_forward(31.5, 50);
+    LCD.WriteLine(RPS.Heading());
+    Sleep(2.5);
+    correct_heading(88.0);
     // Turning to get right of the ice cream levers
     Sleep(0.5);
     turn_left(55);
-    move_forward(11.8);
+    move_forward(10.5);
     // Getting angled with levers
     turn_right(100);
     move_back(3);
@@ -53,17 +56,20 @@ void flip_right_ice_cream() {
     move_forward(distance);
     // Lowering the arm, moving back to wait, and lifting the lever
     Sleep(0.8);
-    set_side_percent(40);
+    set_side_percent(60);
     Sleep(0.8);
     set_side_percent(0);
-    move_back(3);
+    move_back(2);
     Sleep(7.0);
     set_side_percent(70);
     Sleep(0.8);
-    move_forward(3);
+    move_forward(2);
     Sleep(0.8);
-    set_side_percent(20);
+    set_side_percent(0);
+    Sleep(0.8);
     // Moving back to initial location should
+    set_side_percent(80);
+    Sleep(0.8);
     move_back(distance);
     set_side_percent(0);
 }
@@ -71,13 +77,14 @@ void flip_right_ice_cream() {
 void hit_final_button() {
     // Angling with the ramp
     turn_right(45);
-    move_forward(11.5);
+    move_forward(10.8);
     turn_left(90);
     // Going down the ramp
+    correct_heading(88.0);
     move_back(35);
     // Hitting final button
-    turn_right(135);
-    move_forward(22);
+    turn_right(145);
+    move_forward(22, 40);
 }
 
 void flip_burger() {
