@@ -49,7 +49,7 @@ void flip_right_ice_cream() {
     // Raising side arm to maximum
     set_side_percent(0);
     // Calculating necessary distance to reach lever depending on the flavor
-    int distance = flavor * 4.3;
+    int distance = flavor * 4.3 + 2.4;
     move_forward(distance);
     // Lowering the arm, moving back to wait, and lifting the lever
     Sleep(0.8);
@@ -71,7 +71,7 @@ void flip_right_ice_cream() {
 void hit_final_button() {
     // Angling with the ramp
     turn_right(45);
-    move_forward(8.0);
+    move_forward(11.5);
     turn_left(90);
     // Going down the ramp
     move_back(35);
