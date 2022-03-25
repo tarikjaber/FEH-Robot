@@ -64,11 +64,12 @@ void flip_ice_cream() {
     // Turning to get right of the ice cream levers
     Sleep(0.5);
     turn_left(55);
+    Sleep(0.5);
     move_forward(10.5);
+    Sleep(0.5);
 
     // Getting angled with levers
     turn_right(100);
-    move_back(3);
 
     // Getting ice cream flavor
     int flavor = get_ice_cream();
@@ -78,7 +79,7 @@ void flip_ice_cream() {
     set_side(0);
 
     // Calculating necessary distance to reach lever depending on the flavor
-    int distance = flavor * 4.3 + 2.4;
+    int distance = flavor * 4.3;
     move_forward(distance);
 
     // Lowering the arm, moving back to wait, and lifting the lever
@@ -111,7 +112,7 @@ void deposit_tray() {
     Sleep(1.0);
 
     // Move to sink
-    move_time(5, BACKWARD);
+    move_time(2, BACKWARD);
 
     // Lowering the back arm
     set_back(95);
@@ -125,9 +126,9 @@ void deposit_tray() {
 
 void flip_burger() {
     // Going to the burger plate
-    turn_right(45);
-    move_forward(13);
-    turn_right(45);
+    turn_right(30);
+    move_forward(16);
+    turn_right(60);
 
     // Correcting the x-coordinate
     correct_x(26);
