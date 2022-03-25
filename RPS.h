@@ -11,7 +11,7 @@
 #define COUNTS_PER_DEGREE 2.48
 
 // Defines for pulsing the robot
-#define PULSE_TIME 0.10
+#define PULSE_TIME 0.07
 #define PULSE_POWER 20
 
 // Define for the motor power
