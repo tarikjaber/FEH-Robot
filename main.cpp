@@ -18,6 +18,7 @@ void flip_ice_cream();
 void flip_burger();
 // End
 void hit_final_button();
+void shutdown();
 
 int main() {
     // Set Up
