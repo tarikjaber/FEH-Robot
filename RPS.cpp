@@ -29,31 +29,11 @@ void pulse_forward(int percent, float seconds)
 void pulse_counterclockwise(int percent, float seconds) 
 {
     // Set both motors to desired percent
-    set_right_percent(percent);
-    set_left_percent(-percent);
+    set_right(percent);
+    set_left(-percent);
 
     // Wait for the correct number of seconds
     Sleep(seconds);
-
-    // Turn off motors
-    stop();
-}
-
-/*
- * Turn counterclockwise using shaft encoders where percent is the motor percent and counts is the distance to travel
- */
-void turn_counterclockwise(int percent, int counts) 
-{
-    // Reset encoder counts
-    reset_encoder_counts();
-
-    // Set both motors to desired percent
-    set_right_percent(percent);
-    set_left_percent(-percent);
-
-    // While the average of the left and right encoder are less than counts,
-    // keep running motors
-    while((left_encoder.Counts() + right_encoder.Counts()) / 2 < counts);
 
     // Turn off motors
     stop();

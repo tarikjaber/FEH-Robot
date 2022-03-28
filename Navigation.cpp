@@ -1,5 +1,4 @@
 #include "Navigation.h"
-#include <string>
 
 using namespace std;
 
@@ -9,7 +8,12 @@ FEHMotor right_motor(FEHMotor::Motor1, 9.0);
 DigitalEncoder left_encoder(FEHIO::P2_7);
 DigitalEncoder right_encoder(FEHIO::P1_0);
 
-//* Test Code
+// Double Equality
+bool are_same(double d1, double d2) {
+    return fabs(d1 - d2) < EPSILON;
+}
+
+// Test Code
 void write_counts() {
     LCD.Write("Right: ");
     LCD.WriteLine(right_encoder.Counts());
@@ -20,35 +24,35 @@ void write_counts() {
 void test_navigation() {
     // Forward 12 inches
     move_forward(12);
-    LCD.Write("Forward______________");
+    LCD.WriteLine("Forward______________");
     write_counts();
     Sleep(1.0);
     // 90 degree right turn
     turn_right(90);
-    LCD.Write("Right________________");
+    LCD.WriteLine("Right________________");
     write_counts();
     Sleep(1.0);
     // 90 degree left turn
     turn_left(90);
-    LCD.Write("Left_________________");
+    LCD.WriteLine("Left_________________");
     write_counts();
     Sleep(1.0);
     // 90 degree left turn
     turn_left(90);
-    LCD.Write("Left_________________");
+    LCD.WriteLine("Left_________________");
     write_counts();
     Sleep(1.0);
     // 90 degree right turn
     turn_right(90);
-    LCD.Write("Right________________");
+    LCD.WriteLine("Right________________");
     write_counts();
     Sleep(1.0);
     // Back 12 inches
     move_back(12);
-    LCD.Write("Back_________________");
+    LCD.WriteLine("Back_________________");
     write_counts();
 }
-//* Encoder Functions
+// Encoder Functions
 void reset_encoder_counts() {
     right_encoder.ResetCounts();
     left_encoder.ResetCounts();
@@ -63,30 +67,30 @@ double inches_to_counts(double inches) {
 }
 
 void move_counts(double counts, double left_speed, double right_speed) {
-    set_left_percent(left_speed);
-    set_right_percent(right_speed);
+    set_left(left_speed);
+    set_right(right_speed);
 
     while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
         double correction_factor = (right_encoder.Counts() + 1.0) / (left_encoder.Counts() + 1.0);
-        set_left_percent(left_speed * correction_factor);
+        set_left(left_speed * correction_factor);
     }
 }
 
-//* Motor Percentage Manipulation
+// Motor Percentage Manipulation
 void set_both(double percent) {
-    set_right_percent(percent);
-    set_left_percent(percent);
+    set_right(percent);
+    set_left(percent);
 }
 
-void set_right_percent(double percent) {
+void set_right(double percent) {
     right_motor.SetPercent(percent * RIGHT_CORRECTION_FACTOR);
 }
 
-void set_left_percent(double percent) {
+void set_left(double percent) {
     left_motor.SetPercent(-percent);
 }
 
-//* Turning
+// Turning
 void turn_left(double degrees) {
     turn(-degrees);
 }
@@ -112,8 +116,7 @@ void turn(double degrees) {
     stop();
 }   
 
-//* Motor Functions
-// TODO Think about how to better implement this function
+// Motor Functions
 void turn_with_angle(double inches, double degrees) {
     double left_wheel_percent = STRAIGHT_SPEED_PERCENT;
     double right_wheel_percent = STRAIGHT_SPEED_PERCENT;
@@ -126,8 +129,8 @@ void turn_with_angle(double inches, double degrees) {
         left_wheel_percent -= degrees;
     }
 
-    set_left_percent(left_wheel_percent);
-    set_right_percent(right_wheel_percent);
+    set_left(left_wheel_percent);
+    set_right(right_wheel_percent);
 
     while ((left_encoder.Counts() + right_encoder.Counts()) / 2 < total_counts) {}
 
@@ -141,11 +144,11 @@ void move_time(double time, Direction direction) {
     } else if (direction == BACKWARD) {
         set_both(-STRAIGHT_SPEED_PERCENT);
     } else if (direction == LEFT) {
-        set_right_percent(STRAIGHT_SPEED_PERCENT);
-        set_left_percent(-STRAIGHT_SPEED_PERCENT);
+        set_right(STRAIGHT_SPEED_PERCENT);
+        set_left(-STRAIGHT_SPEED_PERCENT);
     } else if (direction == RIGHT) {
-        set_right_percent(-STRAIGHT_SPEED_PERCENT);
-        set_left_percent(STRAIGHT_SPEED_PERCENT);
+        set_right(-STRAIGHT_SPEED_PERCENT);
+        set_left(STRAIGHT_SPEED_PERCENT);
     }
 
     Sleep(time);
@@ -165,7 +168,10 @@ void move_forward(double inches, double left_speed, double right_speed) {
     
     double total_counts = inches_to_counts(inches);
 
-    move_counts(total_counts, left_speed, right_speed);
+    set_left(left_speed);
+    set_right(right_speed);
+
+    while ((left_encoder.Counts() + right_encoder.Counts()) / 2 < total_counts) {}
     stop();
 }
 
