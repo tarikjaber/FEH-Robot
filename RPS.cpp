@@ -110,6 +110,9 @@ void correct_heading(float heading)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_counterclockwise(-PULSE_POWER, PULSE_TIME);
+            if (RPS.Heading() > 355 && heading == 0) {
+                pulse_counterclockwise(PULSE_POWER, PULSE_TIME);
+            }
         }
         else if(RPS.Heading() < heading - 0.6)
         {

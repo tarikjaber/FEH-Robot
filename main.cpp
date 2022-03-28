@@ -58,8 +58,10 @@ void flip_ice_cream() {
     // Go up the ramp
     move_forward(31.5, 50);
     LCD.WriteLine(RPS.Heading());
+    LCD.WriteLine(RPS.Y());
     Sleep(2.5);
     correct_heading(88.0);
+    correct_y(46.5);
 
     // Turning to get right of the ice cream levers
     Sleep(0.5);
@@ -69,7 +71,7 @@ void flip_ice_cream() {
     Sleep(0.5);
 
     // Getting angled with levers
-    turn_right(100);
+    turn_right(97);
 
     // Getting ice cream flavor
     int flavor = get_ice_cream();
@@ -79,7 +81,7 @@ void flip_ice_cream() {
     set_side(0);
 
     // Calculating necessary distance to reach lever depending on the flavor
-    int distance = flavor * 4.3;
+    int distance = flavor * 4.15;
     move_forward(distance);
 
     // Lowering the arm, moving back to wait, and lifting the lever
@@ -87,11 +89,11 @@ void flip_ice_cream() {
     set_side(60);
     Sleep(0.8);
     set_side(0);
-    move_back(2);
+    move_back(2.5);
     Sleep(7.0);
     set_side(70);
     Sleep(0.8);
-    move_forward(2);
+    move_forward(2.5);
     Sleep(0.8);
     set_side(0);
     Sleep(0.8);
@@ -99,20 +101,23 @@ void flip_ice_cream() {
     // Moving back to initial location should
     set_side(80);
     Sleep(0.8);
-    move_back(distance);
+    // Flipping side lever all the way up
+    move_back(2.5);
     set_side(0);
+    Sleep(0.8);
+    move_back(distance);
 }
 
 void deposit_tray() {
     // Going to sink
-    turn_left(45);
+    turn_left(43);
     move_back(5);
     // Opening horizontal arm so that back servo can go down
     set_horizontal(100);
     Sleep(1.0);
 
     // Move to sink
-    move_time(2, BACKWARD);
+    move_time(1.7, BACKWARD);
 
     // Lowering the back arm
     set_back(95);
@@ -127,12 +132,12 @@ void deposit_tray() {
 void flip_burger() {
     // Going to the burger plate
     turn_right(30);
-    move_forward(16);
-    turn_right(60);
+    move_forward(15.1);
+    turn_right(65);
 
     // Correcting the x-coordinate
-    correct_x(26);
-    correct_heading(0);
+    Sleep(1.0);
+    move_back(2);
 
     // Lowering side arm all the way down
     set_side(100);

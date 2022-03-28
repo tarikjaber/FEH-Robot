@@ -54,6 +54,6 @@ void move_back(double);
 void move_back(double, double);
 void move_back(double, double, double);
 // Double Equality
-bool are_same(double d1, double d2)
+bool are_same(double d1, double d2);
 
 #endif
