@@ -61,7 +61,7 @@ void flip_ice_cream() {
     LCD.WriteLine(RPS.Y());
     Sleep(2.5);
     correct_heading(88.0);
-    correct_y(46.5);
+    correct_y(47.5);
 
     // Turning to get right of the ice cream levers
     Sleep(0.5);
@@ -89,11 +89,13 @@ void flip_ice_cream() {
     set_side(60);
     Sleep(0.8);
     set_side(0);
+
+    // Flip back up
     move_back(2.5);
     Sleep(7.0);
     set_side(70);
     Sleep(0.8);
-    move_forward(2.5);
+    turn_right(25);
     Sleep(0.8);
     set_side(0);
     Sleep(0.8);
@@ -101,8 +103,9 @@ void flip_ice_cream() {
     // Moving back to initial location should
     set_side(80);
     Sleep(0.8);
+    turn_left(25);
+
     // Flipping side lever all the way up
-    move_back(2.5);
     set_side(0);
     Sleep(0.8);
     move_back(distance);

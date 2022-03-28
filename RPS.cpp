@@ -24,6 +24,14 @@ void pulse_forward(int percent, float seconds)
 }
 
 /*
+ * Pulse clockwise a short distance using time
+ */
+void pulse_clockwise(int percent, float seconds) 
+{
+    pulse_counterclockwise(-percent, seconds);
+}
+
+/*
  * Pulse counterclockwise a short distance using time
  */
 void pulse_counterclockwise(int percent, float seconds) 
@@ -53,14 +61,14 @@ void correct_x(float x_coordinate)
     }
 
     // Check if receiving proper RPS coordinates and whether the robot is within an acceptable range
-    while((RPS.X() >= 0) && (RPS.X() < x_coordinate - 1 || RPS.X() > x_coordinate + 1))
+    while((RPS.X() >= 0) && (RPS.X() < x_coordinate - POSITION_ERROR || RPS.X() > x_coordinate + POSITION_ERROR))
     {
-        if(RPS.X() > x_coordinate + 1)
+        if(RPS.X() > x_coordinate + POSITION_ERROR)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_forward(-power, PULSE_TIME);
         }
-        else if(RPS.X() < x_coordinate - 1)
+        else if(RPS.X() < x_coordinate - POSITION_ERROR)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_forward(power, PULSE_TIME);
@@ -83,18 +91,19 @@ void correct_y(float y_coordinate)
     }
 
     // Check if receiving proper RPS coordinates and whether the robot is within an acceptable range
-    while((RPS.Y() >= 0) && (RPS.Y() < y_coordinate - 0.6 || RPS.Y() > y_coordinate + 0.6))
+    while((RPS.Y() >= 0) && (RPS.Y() < y_coordinate - POSITION_ERROR || RPS.Y() > y_coordinate + POSITION_ERROR))
     {
-        if(RPS.Y() > y_coordinate + 0.6)
+        if(RPS.Y() > y_coordinate + POSITION_ERROR)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_forward(-power, PULSE_TIME);
         }
-        else if(RPS.Y() < y_coordinate - 0.6)
+        else if(RPS.Y() < y_coordinate - POSITION_ERROR)
         {
             // Pulse the motors for a short duration in the correct direction
            pulse_forward(power, PULSE_TIME);
         }
+        LCD.WriteLine(RPS.Y());
         Sleep(RPS_WAIT_TIME_IN_SEC);
     }
 }
@@ -104,17 +113,21 @@ void correct_y(float y_coordinate)
  */
 void correct_heading(float heading)
 {
-   while((RPS.Heading() >= 0) && (RPS.Heading() < heading - 0.6 || RPS.Heading() > heading + 0.6))
+   while((RPS.Heading() >= 0) && (RPS.Heading() < heading - HEADING_ERROR || RPS.Heading() > heading + HEADING_ERROR))
     {
-        if(RPS.Heading() > heading + 0.6)
+        if(RPS.Heading() > heading + HEADING_ERROR)
         {
-            // Pulse the motors for a short duration in the correct direction
-            pulse_counterclockwise(-PULSE_POWER, PULSE_TIME);
-            if (RPS.Heading() > 355 && heading == 0) {
+            if (RPS.Heading() - heading > 180) {
                 pulse_counterclockwise(PULSE_POWER, PULSE_TIME);
+                // Testing if the heading is close to 0 (with a large value like 359.8 degrees)
+                if (heading == 0 && (RPS.Heading() > 360 - HEADING_ERROR)) {
+                    return;
+                }
+            } else {
+                pulse_clockwise(PULSE_POWER, PULSE_TIME);
             }
         }
-        else if(RPS.Heading() < heading - 0.6)
+        else if(RPS.Heading() < heading - HEADING_ERROR)
         {
             // Pulse the motors for a short duration in the correct direction
             pulse_counterclockwise(PULSE_POWER, PULSE_TIME);

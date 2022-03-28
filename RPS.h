@@ -21,6 +21,10 @@
 #define PLUS 0
 #define MINUS 1
 
+// Delay of Position and Heading
+#define HEADING_ERROR 0.5
+#define POSITION_ERROR 0.25
+
 // Function Prototypes
 int get_ice_cream();
 void correct_x(float);
