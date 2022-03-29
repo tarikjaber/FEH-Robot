@@ -3,5 +3,4 @@
 !*.h
 !*.gitignore
 !*.md
-TODO.md
 !Makefile
