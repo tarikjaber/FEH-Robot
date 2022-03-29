@@ -207,10 +207,11 @@ void slide_ticket() {
 void hit_jukebox() {
     // Going to jukebox
     turn_right(90);
-    move_back(13.5);
+    move_back(13.0);
     correct_x(21);
     turn_left(90);
     correct_heading(90);
+    //TODO Use time
     move_back(15);
 
     // Aligning with light
