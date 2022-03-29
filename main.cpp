@@ -46,7 +46,7 @@ void perform_tasks() {
     flip_burger();
     slide_ticket();
     hit_jukebox();
-    hit_final_button();
+    hit_final_button(); 
 }
 
 // Individual Tasks

@@ -4,3 +4,4 @@
 !*.gitignore
 !*.md
 TODO.md
+!Makefile
