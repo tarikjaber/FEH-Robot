@@ -53,7 +53,7 @@ void perform_tasks() {
 void flip_ice_cream() {
     // Angle towards ramp
     move_forward(14);
-    turn_right(45);
+    turn_right(46);
 
     // Go up the ramp
     move_forward(31.5, 50);
@@ -61,7 +61,7 @@ void flip_ice_cream() {
     LCD.WriteLine(RPS.Y());
     Sleep(2.5);
     correct_heading(88.0);
-    correct_y(47.5);
+    correct_y(50.5);
 
     // Turning to get right of the ice cream levers
     Sleep(0.5);
@@ -71,7 +71,7 @@ void flip_ice_cream() {
     Sleep(0.5);
 
     // Getting angled with levers
-    turn_right(97);
+    turn_right(100);
 
     // Getting ice cream flavor
     int flavor = get_ice_cream();
@@ -83,6 +83,7 @@ void flip_ice_cream() {
     // Calculating necessary distance to reach lever depending on the flavor
     int distance = flavor * 4.15;
     move_forward(distance);
+    move_back(0.5);
 
     // Lowering the arm, moving back to wait, and lifting the lever
     Sleep(0.8);
@@ -91,24 +92,24 @@ void flip_ice_cream() {
     set_side(0);
 
     // Flip back up
-    move_back(2.5);
+    move_back(2.0);
     Sleep(7.0);
     set_side(70);
     Sleep(0.8);
-    turn_right(25);
+    turn_right(13);
     Sleep(0.8);
     set_side(0);
     Sleep(0.8);
 
     // Moving back to initial location should
-    set_side(80);
+    set_side(70);
     Sleep(0.8);
-    turn_left(25);
+    turn_left(13);
 
     // Flipping side lever all the way up
     set_side(0);
     Sleep(0.8);
-    move_back(distance);
+    move_back(distance - 3.0);
 }
 
 void deposit_tray() {
@@ -120,10 +121,10 @@ void deposit_tray() {
     Sleep(1.0);
 
     // Move to sink
-    move_time(1.7, BACKWARD);
+    move_time(1.2, BACKWARD);
 
     // Lowering the back arm
-    set_back(95);
+    set_back(96);
     
     // Moving forward to drop the tray off and lifting the back arm back up
     move_forward(5);
@@ -134,28 +135,39 @@ void deposit_tray() {
 
 void flip_burger() {
     // Going to the burger plate
-    turn_right(30);
-    move_forward(15.1);
-    turn_right(65);
+    turn_right(33);
+    move_forward(14.75);
+    correct_y(63);
+    turn_right(62);
 
     // Correcting the x-coordinate
     Sleep(1.0);
-    move_back(2);
+    LCD.WriteLine("X-Coordinate:");
+    LCD.WriteLine(RPS.X());
+    correct_x(19.5);
+    correct_heading(0);
+    move_back(1.5);
 
     // Lowering side arm all the way down
     set_side(100);
 
     // Flipping the burger
-    move_forward(3);
-    set_side(50);
-    move_forward(4, 60);
-    set_side(80);
-    
-    // Returning the hot plate
-    move_back(3);
-    turn_right(15);
-    move_time(4, FORWARD);
+    move_forward(2.0, 20);
     set_side(20);
+    turn_right(15);
+    move_forward(2.5, 60);
+    set_side(50);
+    turn_right(10);
+    move_forward(2, 60);
+    set_side(0);
+    move_forward(2, 60);
+    Sleep(1.0);
+
+    // Returning the hot plate
+    move_back(5);
+    turn_right(20);
+    move_time(4, FORWARD);
+    set_side(50);
     move_back(9);
     
     // Lefting side arm back up
@@ -165,33 +177,37 @@ void flip_burger() {
 
 void slide_ticket() {
     // Aligning with ticket
-    move_forward(4);
-    correct_x(29);
+    move_forward(6.5);
+    correct_x(31.5);
 
     // Turning to angle to ticket
     turn_left(90);
     correct_heading(90);
 
     // Moving back to the ticket
-    move_back(20);
+    move_back(14.0);
     correct_heading(90);
+    Sleep(1.0);
     set_horizontal(80);
 
     // Slide ticket
-    move_back(3);
+    Sleep(0.6);
+    move_back(5);
+    Sleep(0.6);
     set_horizontal(0);
     Sleep(1.0);
 
     // Leaving ticket area
     set_horizontal(90);
     move_forward(10);
+    set_horizontal(0);
 }
 
 void hit_jukebox() {
     // Going to jukebox
     turn_right(90);
-    move_back(15);
-    correct_x(18);
+    move_back(13.5);
+    correct_x(21);
     turn_left(90);
     correct_heading(90);
     move_back(15);

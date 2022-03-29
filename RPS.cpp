@@ -74,6 +74,7 @@ void correct_x(float x_coordinate)
             pulse_forward(power, PULSE_TIME);
         }
         Sleep(RPS_WAIT_TIME_IN_SEC);
+        LCD.WriteLine(RPS.X());
     }
 }
 

@@ -30,5 +30,7 @@ int get_ice_cream();
 void correct_x(float);
 void correct_y(float);
 void correct_heading(float);
+void pulse_counterclockwise(int, float);
+void pulse_clockwise(int, float);
 
 #endif
