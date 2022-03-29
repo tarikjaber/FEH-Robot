@@ -153,14 +153,15 @@ void flip_burger() {
 
     // Flipping the burger
     move_forward(2.0, 20);
-    set_side(20);
+    set_side(75);
     turn_right(15);
     move_forward(2.5, 60);
     set_side(50);
     turn_right(10);
     move_forward(2, 60);
-    set_side(0);
+    set_side(25);
     move_forward(2, 60);
+    set_side(0);
     Sleep(1.0);
 
     // Returning the hot plate
