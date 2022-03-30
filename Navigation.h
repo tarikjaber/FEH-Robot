@@ -12,7 +12,7 @@
 #define TRANSITIONS_PER_REVOLUTION 318
 #define COUNTS_PER_DEGREE 2.40
 #define STRAIGHT_SPEED_PERCENT 30.0
-#define RIGHT_CORRECTION_FACTOR 1.0
+#define RIGHT_CORRECTION_FACTOR 1.02
 #define EPSILON 0.01
 
 extern FEHMotor left_motor;
@@ -50,9 +50,9 @@ void move_time(double time, Direction direction);
 void move_forward(double inches);
 void move_forward(double inches, double motor_percent);
 void move_forward(double inches, double left_percent, double right_percent);
-void move_back(double);
-void move_back(double, double);
-void move_back(double, double, double);
+void move_back(double inches);
+void move_back(double inches, double speed);
+void move_back(double inches, double left_speed, double right_speed);
 // Double Equality
 bool are_same(double d1, double d2);
 

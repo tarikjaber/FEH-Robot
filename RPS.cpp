@@ -107,7 +107,7 @@ void correct_y(float y_coordinate)
         if(RPS.Y() > y_coordinate + POSITION_ERROR)
         {
             float error = RPS.Y() - y_coordinate;
-            if (error > 0.5) {
+            if (error > 0.3) {
                 move_back(error);
             } else {
                 // Pulse the motors for a short duration in the correct direction
@@ -138,14 +138,20 @@ void correct_heading(float heading)
     {
         if(RPS.Heading() > heading + HEADING_ERROR)
         {
-            if (RPS.Heading() - heading > 180) {
-                pulse_counterclockwise(PULSE_POWER, PULSE_TIME);
+            double error = RPS.Heading() - heading;
+            if (error > 180) {
                 // Testing if the heading is close to 0 (with a large value like 359.8 degrees)
                 if (heading == 0 && (RPS.Heading() > 360 - HEADING_ERROR)) {
                     return;
+                } else {
+                    turn_left(360 - error);
                 }
             } else {
-                pulse_clockwise(PULSE_POWER, PULSE_TIME);
+                if (error > 1.0) {
+                    turn_right(error);
+                } else {
+                    pulse_clockwise(PULSE_POWER, PULSE_TIME);
+                }
             }
         }
         else if(RPS.Heading() < heading - HEADING_ERROR)

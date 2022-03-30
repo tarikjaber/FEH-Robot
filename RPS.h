@@ -24,7 +24,7 @@
 
 // Delay of Position and Heading
 #define HEADING_ERROR 0.5
-#define POSITION_ERROR 0.25
+#define POSITION_ERROR 0.2
 
 // Function Prototypes
 int get_ice_cream();

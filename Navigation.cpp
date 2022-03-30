@@ -67,11 +67,10 @@ double inches_to_counts(double inches) {
 }
 
 void move_counts(double counts, double left_speed, double right_speed) {
-    set_left(left_speed);
     set_right(right_speed);
 
     while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
-        double correction_factor = (right_encoder.Counts() + 1.0) / (left_encoder.Counts() + 1.0);
+        double correction_factor = (right_encoder.Counts() + 0.01) / (left_encoder.Counts() + 0.01);
         set_left(left_speed * correction_factor);
     }
 }

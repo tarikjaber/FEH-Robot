@@ -54,6 +54,10 @@ void set_side(double percent) {
 }
 
 // Horizontal Arm
+void open_horizontal_arm() {
+    set_side(100);
+}
+
 void reset_horizontal_arm() {
     horizontal_servo.SetDegree(HORIZONTAL_REST_DEGREE);
 }
