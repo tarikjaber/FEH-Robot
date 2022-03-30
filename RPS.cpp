@@ -65,13 +65,23 @@ void correct_x(float x_coordinate)
     {
         if(RPS.X() > x_coordinate + POSITION_ERROR)
         {
-            // Pulse the motors for a short duration in the correct direction
-            pulse_forward(-power, PULSE_TIME);
+            float error = RPS.X() - x_coordinate;
+            if (error > 0.5) {
+                move_back(error);
+            } else {
+                // Pulse the motors for a short duration in the correct direction
+                pulse_forward(-power, PULSE_TIME);
+            }
         }
         else if(RPS.X() < x_coordinate - POSITION_ERROR)
         {
-            // Pulse the motors for a short duration in the correct direction
-            pulse_forward(power, PULSE_TIME);
+            float error = x_coordinate - RPS.X();
+            if (error > 0.5) {
+                move_forward(error);
+            } else {
+                // Pulse the motors for a short duration in the correct direction
+                pulse_forward(power, PULSE_TIME);
+            }
         }
         Sleep(RPS_WAIT_TIME_IN_SEC);
         LCD.WriteLine(RPS.X());
@@ -96,13 +106,23 @@ void correct_y(float y_coordinate)
     {
         if(RPS.Y() > y_coordinate + POSITION_ERROR)
         {
-            // Pulse the motors for a short duration in the correct direction
-            pulse_forward(-power, PULSE_TIME);
+            float error = RPS.Y() - y_coordinate;
+            if (error > 0.5) {
+                move_back(error);
+            } else {
+                // Pulse the motors for a short duration in the correct direction
+                pulse_forward(-power, PULSE_TIME);
+            }
         }
         else if(RPS.Y() < y_coordinate - POSITION_ERROR)
         {
-            // Pulse the motors for a short duration in the correct direction
-           pulse_forward(power, PULSE_TIME);
+            float error = y_coordinate - RPS.Y();
+            if (error > 0.5) {
+                move_forward(error);
+            } else {
+                // Pulse the motors for a short duration in the correct direction
+                pulse_forward(power, PULSE_TIME);
+            }
         }
         LCD.WriteLine(RPS.Y());
         Sleep(RPS_WAIT_TIME_IN_SEC);
@@ -130,8 +150,17 @@ void correct_heading(float heading)
         }
         else if(RPS.Heading() < heading - HEADING_ERROR)
         {
-            // Pulse the motors for a short duration in the correct direction
-            pulse_counterclockwise(PULSE_POWER, PULSE_TIME);
+            float error = heading - RPS.Heading();
+            if (error > 180) {
+                turn_right(360 - error);
+            } else {
+                if (error > 1.0) {
+                    turn_left(error);
+                } else {
+                    // Pulse the motors for a short duration in the correct direction
+                    pulse_counterclockwise(PULSE_POWER, PULSE_TIME);
+                }
+            }
         }
         Sleep(RPS_WAIT_TIME_IN_SEC);
     }

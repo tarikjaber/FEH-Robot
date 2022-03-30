@@ -1,4 +1,5 @@
 #include <FEHRPS.h>
+#include <cmath>
 
 #ifndef RPS_H
 #define RPS_H
