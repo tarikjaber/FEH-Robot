@@ -36,10 +36,6 @@ void reset_servos() {
 }
 
 // Back Arm
-void drop_back_arm() {
-    back_servo.SetDegree(BACK_ACTIVE_DEGREE);
-}
-
 void reset_back_arm() {
     back_servo.SetDegree(BACK_REST_DEGREE);
 }
@@ -49,10 +45,6 @@ void set_back(double percent) {
 }
 
 // Side Arm
-void drop_side_arm() {
-    side_servo.SetDegree(SIDE_ACTIVE_DEGREE);
-}
-
 void reset_side_arm() {
     side_servo.SetDegree(SIDE_REST_DEGREE);
 }
@@ -62,10 +54,6 @@ void set_side(double percent) {
 }
 
 // Horizontal Arm
-void open_horizontal_arm() {
-    horizontal_servo.SetDegree(HORIZONTAL_ACTIVE_DEGREE);
-}
-
 void reset_horizontal_arm() {
     horizontal_servo.SetDegree(HORIZONTAL_REST_DEGREE);
 }
