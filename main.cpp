@@ -220,7 +220,6 @@ void hit_jukebox() {
     correct_x(21);
     turn_left(90);
     correct_heading(90);
-    //TODO Use time
     move_back(30);
 
     // Aligning with light
