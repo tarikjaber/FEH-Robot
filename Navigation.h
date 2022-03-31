@@ -10,9 +10,10 @@
 
 #define WHEEL_DIAMETER 3
 #define TRANSITIONS_PER_REVOLUTION 318
-#define COUNTS_PER_DEGREE 2.40
+#define COUNTS_PER_DEGREE 2.22
 #define STRAIGHT_SPEED_PERCENT 30.0
-#define RIGHT_CORRECTION_FACTOR 1.02
+#define RIGHT_CORRECTION_FACTOR 1.0
+#define TURN_MOTOR_PERCENT 20
 #define EPSILON 0.01
 
 extern FEHMotor left_motor;
@@ -38,8 +39,10 @@ void reset_encoder_counts();
 void travel_counts(double counts);
 // Turning
 void turn_left(double degrees);
+void turn_left(double degrees, double percent);
 void turn_right(double degrees);
-void turn(double degrees);
+void turn_right(double degrees, double percent);
+void turn(double degrees, double percent);
 // Motor
 void set_both(double percent);
 void set_left(double percent);
