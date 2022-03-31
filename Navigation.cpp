@@ -23,7 +23,7 @@ void write_counts() {
 
 void test_navigation() {
     // Forward 12 inches
-    move_forward(12);
+    move_forward(25);
     LCD.WriteLine("Forward______________");
     write_counts();
     Sleep(1.0);
@@ -48,7 +48,7 @@ void test_navigation() {
     write_counts();
     Sleep(1.0);
     // Back 12 inches
-    move_back(12);
+    move_back(25);
     LCD.WriteLine("Back_________________");
     write_counts();
 }
@@ -68,10 +68,11 @@ double inches_to_counts(double inches) {
 
 void move_counts(double counts, double left_speed, double right_speed) {
     set_right(right_speed);
+    set_left(left_speed);
 
     while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
         double correction_factor = (right_encoder.Counts() + 0.01) / (left_encoder.Counts() + 0.01);
-        set_left(left_speed * correction_factor);
+        set_left(left_speed * correction_factor * correction_factor);
     }
 }
 
@@ -91,17 +92,25 @@ void set_left(double percent) {
 
 // Turning
 void turn_left(double degrees) {
-    turn(-degrees);
+    turn(-degrees, TURN_MOTOR_PERCENT);
+}
+
+void turn_left(double degrees, double percent) {
+    turn(-degrees, percent);
 }
 
 void turn_right(double degrees) {
-    turn(degrees);
+    turn(degrees, TURN_MOTOR_PERCENT);
 }
 
-void turn(double degrees) {
+void turn_right(double degrees, double percent) {
+    turn(degrees, percent);
+}
+
+void turn(double degrees, double percent) {
     reset_encoder_counts();
     
-    double motor_percent = 20;
+    double motor_percent = percent;
     
     // If degrees is negative then turn left
     // NOTE: Turning left is "negative" degrees. 
@@ -141,7 +150,8 @@ void move_time(double time, Direction direction) {
     if (direction == FORWARD) {
         set_both(STRAIGHT_SPEED_PERCENT);
     } else if (direction == BACKWARD) {
-        set_both(-STRAIGHT_SPEED_PERCENT);
+        set_left(-STRAIGHT_SPEED_PERCENT);
+        set_right(-STRAIGHT_SPEED_PERCENT * 1.10);
     } else if (direction == LEFT) {
         set_right(STRAIGHT_SPEED_PERCENT);
         set_left(-STRAIGHT_SPEED_PERCENT);
@@ -151,6 +161,7 @@ void move_time(double time, Direction direction) {
     }
 
     Sleep(time);
+
     stop();
 }
 
