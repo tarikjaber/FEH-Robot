@@ -66,8 +66,12 @@ void correct_x(float x_coordinate)
         if(RPS.X() > x_coordinate + POSITION_ERROR)
         {
             float error = RPS.X() - x_coordinate;
-            if (error > 0.5) {
-                move_back(error);
+            if (error > 0.4) {
+                if (RPS.Heading() >= 90 && RPS.Heading() <= 270) {
+                    move_forward(error);
+                } else {
+                    move_back(error);
+                }
             } else {
                 // Pulse the motors for a short duration in the correct direction
                 pulse_forward(-power, PULSE_TIME);
@@ -76,8 +80,12 @@ void correct_x(float x_coordinate)
         else if(RPS.X() < x_coordinate - POSITION_ERROR)
         {
             float error = x_coordinate - RPS.X();
-            if (error > 0.5) {
-                move_forward(error);
+            if (error > 0.4) {
+                if (RPS.Heading() >= 90 && RPS.Heading() <= 270) {
+                    move_back(error);
+                } else {
+                    move_forward(error);
+                }
             } else {
                 // Pulse the motors for a short duration in the correct direction
                 pulse_forward(power, PULSE_TIME);
@@ -107,8 +115,12 @@ void correct_y(float y_coordinate)
         if(RPS.Y() > y_coordinate + POSITION_ERROR)
         {
             float error = RPS.Y() - y_coordinate;
-            if (error > 0.3) {
-                move_back(error);
+            if (error > 0.4) {
+                if (RPS.Heading() >= 180) {
+                    move_forward(error);
+                } else {
+                    move_back(error);
+                }
             } else {
                 // Pulse the motors for a short duration in the correct direction
                 pulse_forward(-power, PULSE_TIME);
@@ -117,8 +129,12 @@ void correct_y(float y_coordinate)
         else if(RPS.Y() < y_coordinate - POSITION_ERROR)
         {
             float error = y_coordinate - RPS.Y();
-            if (error > 0.5) {
-                move_forward(error);
+            if (error > 0.4) {
+                if (RPS.Heading() >= 180) {
+                    move_back(error);
+                } else {
+                    move_forward(error);
+                }
             } else {
                 // Pulse the motors for a short duration in the correct direction
                 pulse_forward(power, PULSE_TIME);
