@@ -166,7 +166,11 @@ void move_time(double time, Direction direction) {
 }
 
 void move_forward(double inches) {
-    move_forward(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
+    if (inches >= 0) {
+        move_forward(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
+    } else {
+        move_back(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
+    }
 }
 
 void move_forward(double inches, double speed) {
@@ -187,7 +191,11 @@ void move_forward(double inches, double left_speed, double right_speed) {
 
 // Backward Functions
 void move_back(double inches) {
-    move_back(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
+    if (inches >= 0) {
+        move_back(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
+    } else {
+        move_forward(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT);
+    }
 }
 
 void move_back(double inches, double speed) {
