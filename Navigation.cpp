@@ -51,6 +51,7 @@ void test_navigation() {
     move_back(25);
     LCD.WriteLine("Back_________________");
     write_counts();
+    Sleep(1.0);
 }
 // Encoder Functions
 void reset_encoder_counts() {
@@ -90,7 +91,6 @@ void set_left(double percent) {
     left_motor.SetPercent(-percent);
 }
 
-// Turning
 void turn_left(double degrees) {
     turn(-degrees, TURN_MOTOR_PERCENT);
 }

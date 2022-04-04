@@ -24,10 +24,6 @@ int main() {
     // Set Up
     initialize();
 
-    // move_forward(10);
-    // write_counts();
-    // move_back(10);
-    // write_counts();
     // Body
     perform_tasks();
 
