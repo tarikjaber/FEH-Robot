@@ -58,7 +58,7 @@ void flip_ice_cream() {
     // Angle towards ramp
     move_forward(13);
     turn_right(37);
-    correct_x(20);
+    correct_x(18);
     correct_heading(90);
 
     // Go up the ramp
@@ -78,9 +78,6 @@ void flip_ice_cream() {
     Sleep(0.5);
 
     // Getting angled with levers
-    //Right
-    //turn_right(97);
-    //Left
     turn_right(100);
 
     // Getting ice cream flavor
@@ -94,7 +91,12 @@ void flip_ice_cream() {
     int distance = flavor * 4.15;
     move_forward(distance);
     //Right
-    move_back(0.75);
+    if (flavor >= 1) {
+        move_back(0.75);
+    } else {
+        move_back(1.5);
+    }
+    
 
     // Lowering the arm, moving back to wait, and lifting the lever
     Sleep(0.8);
@@ -169,12 +171,12 @@ void flip_burger() {
     turn_right(20, 50);
     move_forward(2, 60);
     set_side(0);
-    turn_right(15, 50);
+    turn_right(25, 60);
     Sleep(1.0);
 
     // Returning the hot plate
     move_back(5);
-    turn_right(10);
+    turn_right(15);
     move_time(2.5, FORWARD);
     set_side(50);
     move_back(9);
@@ -227,49 +229,53 @@ void hit_jukebox() {
     // Aligning with light
     turn_left(90);
     move_forward(10.5);
-    correct_x(4);
+    //correct_x(8);
+    correct_x(8);
     turn_left(90);
 
+    move_time(3, FORWARD);
+
+
     // Drive until light
-    set_both(30);
-    wait_for_light();
-    stop();
+    // set_both(30);
+    // wait_for_light();
+    // stop();
 
-    // Testing if the light is red or blue or wasn't read correctly
-    if (is_red()) {
-        Sleep(1.0);
-        turn_left(90);
-        correct_heading(270);
+    // // Testing if the light is red or blue or wasn't read correctly
+    // if (is_red()) {
+    //     Sleep(1.0);
+    //     turn_left(90);
+    //     correct_heading(270);
 
-        LCD.Clear(SCARLET);
-        turn_right(20.0);
-        move_forward(4);
-        turn_left(20.0);
+    //     LCD.Clear(SCARLET);
+    //     turn_right(20.0);
+    //     move_forward(4);
+    //     turn_left(20.0);
 
-        move_time(3, FORWARD);
-    }
-    else if (is_blue()) {
-        Sleep(1.0);
-        turn_left(90);
-        correct_heading(270);
+    //     move_time(3, FORWARD);
+    // }
+    // else if (is_blue()) {
+    //     Sleep(1.0);
+    //     turn_left(90);
+    //     correct_heading(270);
 
-        LCD.Clear(BLUE);
-        turn_left(20.0);
-        move_forward(3);
-        turn_right(20.0);
+    //     LCD.Clear(BLUE);
+    //     turn_left(20.0);
+    //     move_forward(3);
+    //     turn_right(20.0);
 
-        move_time(3, FORWARD);
-    }
-    else
-    {
-        LCD.Clear(GREEN);
-        LCD.WriteLine("ERROR: Did not read light value.");
-    }
+    //     move_time(3, FORWARD);
+    // }
+    // else
+    // {
+    //     LCD.Clear(GREEN);
+    //     LCD.WriteLine("ERROR: Did not read light value.");
+    // }
 }
 
 // End
 void hit_final_button() {
-    move_back(5);
+    move_back(8);
     turn_left(75);
     move_forward(50, 50);
 }
