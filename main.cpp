@@ -57,12 +57,13 @@ void perform_tasks() {
 void flip_ice_cream() {
     // Angle towards ramp
     move_forward(13);
-    turn_right(37);
-    correct_x(18);
+    correct_x(17.0);
+    turn_right(41);
+    
     correct_heading(90);
 
     // Go up the ramp
-    move_forward(31.5, 50);
+    move_forward(28.5, 50);
     write_counts();
     LCD.WriteLine(RPS.Heading());
     LCD.WriteLine(RPS.Y());
@@ -74,6 +75,7 @@ void flip_ice_cream() {
     Sleep(0.5);
     turn_left(53);
     Sleep(0.5);
+    double offset = RPS.X() - 17.0;
     move_forward(10.5);
     Sleep(0.5);
 
@@ -88,15 +90,18 @@ void flip_ice_cream() {
     set_side(0);
 
     // Calculating necessary distance to reach lever depending on the flavor
+    flavor = 1;
     int distance = flavor * 4.15;
-    move_forward(distance);
-    //Right
-    if (flavor >= 1) {
-        move_back(0.75);
-    } else {
-        move_back(1.5);
-    }
-    
+    //move_forward(distance - 1);
+    LCD.WriteLine("Offset");
+    LCD.WriteLine(offset);
+    move_forward(2.1 + offset);
+    // //Right
+    // if (flavor >= 1) {
+    //     move_back(0.75);
+    // } else {
+    //     move_back(1.5);
+    // }
 
     // Lowering the arm, moving back to wait, and lifting the lever
     Sleep(0.8);
@@ -105,8 +110,8 @@ void flip_ice_cream() {
     set_side(0);
 
     // Flip back up
-    move_back(1.25);
-    Sleep(7.0);
+    move_back(2);
+    Sleep(2.0);
     set_side(70);
     Sleep(0.8);
     turn_right(13);
@@ -122,7 +127,8 @@ void flip_ice_cream() {
     // Flipping side lever all the way up
     set_side(0);
     Sleep(0.8);
-    move_back(distance - 1.25);
+    // move_back(distance - 1.25);
+    move_back(1.5);
 }
 
 void deposit_tray() {
@@ -176,9 +182,9 @@ void flip_burger() {
 
     // Returning the hot plate
     move_back(5);
-    turn_right(15);
+    turn_right(10);
     move_time(2.5, FORWARD);
-    set_side(50);
+    set_side(40);
     move_back(9);
     
     // Lefting side arm back up
@@ -188,7 +194,6 @@ void flip_burger() {
 
 void slide_ticket() {
     // Aligning with ticket
-    move_forward(2.5);
     correct_x(29.5);
 
     // Turning to angle to ticket
@@ -219,64 +224,48 @@ void slide_ticket() {
 void hit_jukebox() {
     // Going to jukebox
     turn_right(110);
-    move_back(10.0);
+    move_back(8.0);
     correct_x(20);
     turn_left(90);
     correct_heading(90);
     move_back(14);
-    correct_y(23.5);
+    LCD.WriteLine(RPS.Y());
+    Sleep(1.5);
+    correct_y(19);
+    LCD.WriteLine(RPS.Y());
     
     // Aligning with light
     turn_left(90);
-    move_forward(10.5);
-    //correct_x(8);
-    correct_x(8);
-    turn_left(90);
+    set_both(20);
+    wait_for_light();
+    stop();
+    move_forward(0.5);
 
-    move_time(3, FORWARD);
+    // Testing if the light is red or blue or wasn't read correctly
+    if (is_red()) {
+        LCD.Clear(RED);
+        move_forward(6);
+        turn_left(90);
 
+        move_time(3, FORWARD);
+    }
+    else if (is_blue()) {
+        LCD.Clear(BLUE);
+        turn_left(90);
 
-    // Drive until light
-    // set_both(30);
-    // wait_for_light();
-    // stop();
-
-    // // Testing if the light is red or blue or wasn't read correctly
-    // if (is_red()) {
-    //     Sleep(1.0);
-    //     turn_left(90);
-    //     correct_heading(270);
-
-    //     LCD.Clear(SCARLET);
-    //     turn_right(20.0);
-    //     move_forward(4);
-    //     turn_left(20.0);
-
-    //     move_time(3, FORWARD);
-    // }
-    // else if (is_blue()) {
-    //     Sleep(1.0);
-    //     turn_left(90);
-    //     correct_heading(270);
-
-    //     LCD.Clear(BLUE);
-    //     turn_left(20.0);
-    //     move_forward(3);
-    //     turn_right(20.0);
-
-    //     move_time(3, FORWARD);
-    // }
-    // else
-    // {
-    //     LCD.Clear(GREEN);
-    //     LCD.WriteLine("ERROR: Did not read light value.");
-    // }
+        move_time(3, FORWARD);
+    }
+    else
+    {
+        LCD.Clear(GREEN);
+        LCD.WriteLine("ERROR: Did not read light value.");
+    }
 }
 
 // End
 void hit_final_button() {
     move_back(8);
-    turn_left(75);
+    turn_left(60);
     move_forward(50, 50);
 }
 
