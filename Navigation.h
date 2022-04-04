@@ -3,6 +3,7 @@
 #include <FEHLCD.h>
 #include <FEHSD.h>
 #include <cmath>
+#include <math.h>
 #include <string>
 
 #ifndef NAVIGATION_H

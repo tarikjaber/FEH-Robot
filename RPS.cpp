@@ -52,47 +52,13 @@ void pulse_counterclockwise(int percent, float seconds)
  */
 void correct_x(float x_coordinate)
 {
-    // Determine the direction of the motors based on the orientation of the QR code 
-    int power = PULSE_POWER;
+    double error = x_coordinate - RPS.X();
 
-    // "Minus Orientation"
-    if (RPS.Heading() >= 90 && RPS.Heading() <= 270) {
-        power = -PULSE_POWER;
-    }
-
-    // Check if receiving proper RPS coordinates and whether the robot is within an acceptable range
-    while((RPS.X() >= 0) && (RPS.X() < x_coordinate - POSITION_ERROR || RPS.X() > x_coordinate + POSITION_ERROR))
-    {
-        if(RPS.X() > x_coordinate + POSITION_ERROR)
-        {
-            float error = RPS.X() - x_coordinate;
-            if (error > 0.4) {
-                if (RPS.Heading() >= 90 && RPS.Heading() <= 270) {
-                    move_forward(error);
-                } else {
-                    move_back(error);
-                }
-            } else {
-                // Pulse the motors for a short duration in the correct direction
-                pulse_forward(-power, PULSE_TIME);
-            }
-        }
-        else if(RPS.X() < x_coordinate - POSITION_ERROR)
-        {
-            float error = x_coordinate - RPS.X();
-            if (error > 0.4) {
-                if (RPS.Heading() >= 90 && RPS.Heading() <= 270) {
-                    move_back(error);
-                } else {
-                    move_forward(error);
-                }
-            } else {
-                // Pulse the motors for a short duration in the correct direction
-                pulse_forward(power, PULSE_TIME);
-            }
-        }
+    while (error > POSITION_ERROR) {
+        double distance = error / sin(RPS.Heading());
+        move_forward(distance);
         Sleep(RPS_WAIT_TIME_IN_SEC);
-        LCD.WriteLine(RPS.X());
+        error = x_coordinate - RPS.X();
     }
 }
 
@@ -101,47 +67,13 @@ void correct_x(float x_coordinate)
  */
 void correct_y(float y_coordinate)
 {
-    // Determine the direction of the motors based on the orientation of the QR code
-    int power = PULSE_POWER;
+    double error = y_coordinate - RPS.Y();
 
-    // "Minus Orientation"
-    if (RPS.Heading() >= 180) {
-        power = -PULSE_POWER;
-    }
-
-    // Check if receiving proper RPS coordinates and whether the robot is within an acceptable range
-    while((RPS.Y() >= 0) && (RPS.Y() < y_coordinate - POSITION_ERROR || RPS.Y() > y_coordinate + POSITION_ERROR))
-    {
-        if(RPS.Y() > y_coordinate + POSITION_ERROR)
-        {
-            float error = RPS.Y() - y_coordinate;
-            if (error > 0.4) {
-                if (RPS.Heading() >= 180) {
-                    move_forward(error);
-                } else {
-                    move_back(error);
-                }
-            } else {
-                // Pulse the motors for a short duration in the correct direction
-                pulse_forward(-power, PULSE_TIME);
-            }
-        }
-        else if(RPS.Y() < y_coordinate - POSITION_ERROR)
-        {
-            float error = y_coordinate - RPS.Y();
-            if (error > 0.4) {
-                if (RPS.Heading() >= 180) {
-                    move_back(error);
-                } else {
-                    move_forward(error);
-                }
-            } else {
-                // Pulse the motors for a short duration in the correct direction
-                pulse_forward(power, PULSE_TIME);
-            }
-        }
-        LCD.WriteLine(RPS.Y());
+    while (error > POSITION_ERROR) {
+        double distance = error / cos(RPS.Heading());
+        move_forward(distance);
         Sleep(RPS_WAIT_TIME_IN_SEC);
+        error = y_coordinate - RPS.Y();
     }
 }
 
