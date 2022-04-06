@@ -50,19 +50,19 @@ void pulse_counterclockwise(int percent, float seconds)
 /* 
  * Use RPS to move to the desired x_coordinate based on the orientation of the QR code
  */
-void correct_x(float x_coordinate)
-{
-    double error = x_coordinate - RPS.X();
+// void correct_x(float x_coordinate)
+// {
+//     double error = x_coordinate - RPS.X();
 
-    while (fabs(error) > POSITION_ERROR) {
-        float degrees = RPS.Heading();
-        float radians = degrees * M_PI / 180;
-        double distance = error / cos(radians);
-        move_forward(distance);
-        Sleep(RPS_WAIT_TIME_IN_SEC);
-        error = x_coordinate - RPS.X();
-    }
-}
+//     while (fabs(error) > POSITION_ERROR) {
+//         float degrees = RPS.Heading();
+//         float radians = degrees * M_PI / 180;
+//         double distance = error / cos(radians);
+//         move_forward(distance);
+//         Sleep(RPS_WAIT_TIME_IN_SEC);
+//         error = x_coordinate - RPS.X();
+//     }
+// }
 
 void correct_x(float x_coordinate)
 {
@@ -103,19 +103,19 @@ void correct_x(float x_coordinate)
 /* 
  * Use RPS to move to the desired y_coordinate based on the orientation of the QR code
  */
-void correct_y(float y_coordinate)
-{
-    double error = y_coordinate - RPS.Y();
+// void correct_y(float y_coordinate)
+// {
+//     double error = y_coordinate - RPS.Y();
 
-    while (fabs(error) > POSITION_ERROR) {
-        float degrees = RPS.Heading();
-        float radians = degrees * M_PI / 180;
-        double distance = error / sin(radians);
-        move_forward(distance);
-        Sleep(RPS_WAIT_TIME_IN_SEC);
-        error = y_coordinate - RPS.Y();
-    }   
-}
+//     while (fabs(error) > POSITION_ERROR) {
+//         float degrees = RPS.Heading();
+//         float radians = degrees * M_PI / 180;
+//         double distance = error / sin(radians);
+//         move_forward(distance);
+//         Sleep(RPS_WAIT_TIME_IN_SEC);
+//         error = y_coordinate - RPS.Y();
+//     }   
+// }
 
 void correct_y(float y_coordinate)
 {
