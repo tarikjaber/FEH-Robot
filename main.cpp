@@ -72,7 +72,7 @@ void flip_ice_cream() {
     turn_left(53);
     Sleep(0.5);
     double offset = RPS.X() - 17.0;
-    move_forward(10.5);
+    move_forward(10.5 + offset * 1.8);
     Sleep(0.5);
 
     // Getting angled with levers
@@ -91,7 +91,7 @@ void flip_ice_cream() {
     //move_forward(distance - 1);
     LCD.WriteLine("Offset");
     LCD.WriteLine(offset);
-    move_forward(2.1 + offset);
+    move_forward(1.5);
     // //Right
     // if (flavor >= 1) {
     //     move_back(0.75);
@@ -175,13 +175,6 @@ void flip_burger() {
     set_side(0);
     turn_right(25, 60);
     Sleep(1.0);
-
-    // Returning the hot plate
-    move_back(5);
-    turn_right(10);
-    move_time(2.5, FORWARD);
-    set_side(40);
-    move_back(9);
     
     // Lefting side arm back up
     Sleep(0.8);
@@ -190,7 +183,7 @@ void flip_burger() {
 
 void slide_ticket() {
     // Aligning with ticket
-    correct_x(29.5);
+    correct_x(31.5);
 
     // Turning to angle to ticket
     turn_left(95);
@@ -220,18 +213,18 @@ void slide_ticket() {
 void hit_jukebox() {
     // Going to jukebox
     turn_right(110);
-    move_back(8.0);
-    correct_x(20);
+    move_back(6.0);
+    correct_x(22);
     turn_left(90);
     correct_heading(90);
     move_back(14);
     LCD.WriteLine(RPS.Y());
     Sleep(1.5);
-    correct_y(19);
+    correct_y(20);
     LCD.WriteLine(RPS.Y());
     
     // Aligning with light
-    turn_left(90);
+    turn_left(85);
     set_both(20);
     wait_for_light();
     stop();
