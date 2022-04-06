@@ -46,7 +46,7 @@ void perform_tasks() {
     flip_burger();
     slide_ticket();
     hit_jukebox();
-    hit_final_button(); 
+    //hit_final_button(); 
 }
 
 // Individual Tasks
@@ -72,7 +72,11 @@ void flip_ice_cream() {
     turn_left(53);
     Sleep(0.5);
     double offset = RPS.X() - 17.0;
-    move_forward(10.5 + offset * 1.8);
+     LCD.WriteLine("Offset");
+    LCD.WriteLine(offset);
+    Sleep(1.0);
+    //Used to be 10.5. offest * 1.8, then 2
+    move_forward(11.25 + offset);
     Sleep(0.5);
 
     // Getting angled with levers
@@ -91,7 +95,8 @@ void flip_ice_cream() {
     //move_forward(distance - 1);
     LCD.WriteLine("Offset");
     LCD.WriteLine(offset);
-    move_forward(1.5);
+    //Used to be 1.5
+    move_forward(2.75 - (offset *2/3));
     // //Right
     // if (flavor >= 1) {
     //     move_back(0.75);
@@ -174,6 +179,7 @@ void flip_burger() {
     move_forward(2, 60);
     set_side(0);
     turn_right(25, 60);
+    move_forward(0.1);
     Sleep(1.0);
     
     // Lefting side arm back up
@@ -186,7 +192,7 @@ void slide_ticket() {
     correct_x(31.5);
 
     // Turning to angle to ticket
-    turn_left(95);
+    turn_left(100);
     LCD.WriteLine(RPS.Heading());
     correct_heading(95);
     LCD.WriteLine(RPS.Heading());
@@ -195,7 +201,8 @@ void slide_ticket() {
     move_back(15.5);
     correct_heading(90);
     Sleep(1.0);
-    set_horizontal(90);
+    //Used to be 90, 80 still got stuck on right of ticket
+    set_horizontal(70);
 
     // Slide ticket
     Sleep(0.6);
@@ -205,7 +212,8 @@ void slide_ticket() {
     Sleep(1.0);
 
     // Leaving ticket area
-    set_horizontal(90);
+    set_horizontal(70);
+    turn_left(10.0);
     move_forward(10);
     set_horizontal(0);
 }
@@ -214,47 +222,63 @@ void hit_jukebox() {
     // Going to jukebox
     turn_right(110);
     move_back(6.0);
-    correct_x(22);
+    correct_x(21.5);
     turn_left(90);
     correct_heading(90);
     move_back(14);
     LCD.WriteLine(RPS.Y());
     Sleep(1.5);
-    correct_y(20);
+    correct_y(19.0);
     LCD.WriteLine(RPS.Y());
     
     // Aligning with light
-    turn_left(85);
+    turn_left(90);
+    correct_heading(180.0);
     set_both(20);
     wait_for_light();
     stop();
-    move_forward(0.5);
+    move_forward(0.2);
+    Sleep(1.0);
 
     // Testing if the light is red or blue or wasn't read correctly
     if (is_red()) {
         LCD.Clear(RED);
-        move_forward(6);
-        turn_left(90);
+        move_forward(2.0);
+        turn_left(105);
 
-        move_time(3, FORWARD);
+        move_time(2, FORWARD);
+
+        move_back(8);
+        turn_left(55);
     }
     else if (is_blue()) {
         LCD.Clear(BLUE);
-        turn_left(90);
+        turn_left(87);
 
-        move_time(3, FORWARD);
+        move_time(2, FORWARD);
+
+        move_back(8);
+        turn_left(60);
     }
     else
     {
         LCD.Clear(GREEN);
         LCD.WriteLine("ERROR: Did not read light value.");
+          turn_left(87);
+
+        move_time(2, FORWARD);
+
+        move_back(8);
+        turn_left(60);
     }
+
+    move_forward(50, 50);
 }
 
 // End
 void hit_final_button() {
     move_back(8);
-    turn_left(60);
+    turn_left(55);
     move_forward(50, 50);
 }
 
