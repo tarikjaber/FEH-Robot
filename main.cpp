@@ -41,16 +41,18 @@ void initialize() {
 void record_coordinates() {
     int num = 13;
     //Open new file for writing
-    FEHFile *fptr = SD.FOpen("Test.txt", "w");
+    FEHFile *fptr = SD.FOpen("coordinates.txt", "w");
     // Write data to the opened file
-    SD.FPrintf(fptr,",This is a test. My favorite number is %d", num);
+    SD.FPrintf(fptr,"x: %f, y: %f", RPS.X(), RPS.Y());
+    LCD.WriteLine(RPS.X());
+    LCD.WriteLine(RPS.Y());
     //Close file
     SD.FClose(fptr); 
 }
 
 // All Tasks
 void perform_tasks() {
-    //RPS.InitializeTouchMenu();
+    RPS.InitializeTouchMenu();
     Sleep(2.0);
     record_coordinates();
 
