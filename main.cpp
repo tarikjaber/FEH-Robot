@@ -96,7 +96,9 @@ void flip_ice_cream() {
     LCD.WriteLine("Offset");
     LCD.WriteLine(offset);
     //Used to be 1.5
-    move_forward(2.75 - (offset *2/3));
+    //previously 2/3... worked on most but course A
+    //When positve, overshoots
+    move_forward(2.25 - (offset *17/24));
     // //Right
     // if (flavor >= 1) {
     //     move_back(0.75);
@@ -188,6 +190,10 @@ void flip_burger() {
 }
 
 void slide_ticket() {
+    //Avoiding sticking on burger
+    
+    //Or correcting heading 0, check correct heading code
+    turn_left(5.0);
     // Aligning with ticket
     correct_x(31.5);
 
@@ -228,7 +234,7 @@ void hit_jukebox() {
     move_back(14);
     LCD.WriteLine(RPS.Y());
     Sleep(1.5);
-    correct_y(19.0);
+    correct_y(19.2);
     LCD.WriteLine(RPS.Y());
     
     // Aligning with light
