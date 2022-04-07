@@ -101,19 +101,22 @@ void flip_ice_cream() {
 
     // Turning to get right of the ice cream levers
     Sleep(0.5);
-    turn_left(53);
+     double offset = RPS.X() - (20.0 + x_error);
+     turn_left(53);
     Sleep(0.5);
-    double offset = RPS.X() - (17.0 + x_error);
-     LCD.WriteLine("Offset");
+   
+    double forward_offset = offset * sin((RPS.Heading() - 90) * M_PI / 180);
+    double side_offset = offset * cos((RPS.Heading() - 90) * M_PI / 180);
+    LCD.WriteLine("Offset");
     LCD.WriteLine(offset);
     Sleep(1.0);
     //Used to be 10.5. offest * 1.8, then 2, also 1
     //Conistently close to being to far foward... may try 10.75? was at 11.25 at one point so
-    move_forward(10.75 + offset*1);
+    move_forward(10.75 + forward_offset);
     Sleep(0.5);
 
     // Getting angled with levers
-    turn_right(100);
+    turn_right(98);
 
     // Getting ice cream flavor
     int flavor = get_ice_cream();
@@ -131,7 +134,7 @@ void flip_ice_cream() {
     //Used to be 1.5
     //previously 2/3... worked on most but course A
     //When positve, overshoots
-    move_forward(2.10 - (offset * 17/24));
+    move_forward(2.10 - side_offset);
     // //Right
     // if (flavor >= 1) {
     //     move_back(0.75);
@@ -199,9 +202,9 @@ void flip_burger() {
     Sleep(1.0);
     LCD.WriteLine("X-Coordinate:");
     LCD.WriteLine(RPS.X());
-    correct_x(20.0 + x_error);
+    correct_x(21.5 + x_error);
     correct_heading(0);
-    move_back(2.5);
+    move_back(4);
 
     // Lowering side arm all the way down
     set_side(100);
@@ -298,7 +301,7 @@ void hit_jukebox() {
     correct_x(21.5 + x_error);
     turn_left(90);
     correct_heading(90);
-    move_back(20);
+    move_back(26);
     LCD.WriteLine(RPS.Y());
     Sleep(1.5);
     correct_y(19.0 + y_error);
