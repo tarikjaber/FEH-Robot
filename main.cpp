@@ -21,6 +21,8 @@ void flip_burger();
 void hit_final_button();
 void shutdown();
 
+float x_error, y_error;
+
 int main() {
     // Set Up
     initialize();
@@ -39,17 +41,19 @@ void initialize() {
 }
 
 void record_coordinates() {
-    int num = 13;
-    //Open new file for writing
-    FEHFile *fptr = SD.FOpen("coordinates.txt", "w");
-    // Write data to the opened file
-    float num1 = 10.4444;
-    float num2 = 10.4444;
-    SD.FPrintf(fptr,"x: %.4f, y: %.4f", num1, num2);
+    // int num = 13;
+    // //Open new file for writing
+    // FEHFile *fptr = SD.FOpen("coord.txt", "w");
+    // // Write data to the opened file
+    float num1 = RPS.X();
+    float num2 = RPS.Y();
+    // SD.FPrintf(fptr,"x: %.4f, y: %.4f", num1, num2);
     LCD.WriteLine(RPS.X());
     LCD.WriteLine(RPS.Y());
+    x_error= num1 - 27.4;
+    y_error= num2 - 12.9;
     //Close file
-    SD.FClose(fptr); 
+    //SD.FClose(fptr); 
 }
 
 // All Tasks
@@ -81,7 +85,7 @@ void perform_tasks() {
 void flip_ice_cream() {
     // Angle towards ramp
     move_forward(13);
-    correct_x(17.0);
+    correct_x(17.0 + x_error);
     turn_right(41);
     
     correct_heading(90);
@@ -93,13 +97,13 @@ void flip_ice_cream() {
     LCD.WriteLine(RPS.Y());
     Sleep(2.5);
     correct_heading(88.0);
-    correct_y(50.5);
+    correct_y(50.5 + y_error);
 
     // Turning to get right of the ice cream levers
     Sleep(0.5);
     turn_left(53);
     Sleep(0.5);
-    double offset = RPS.X() - 17.0;
+    double offset = RPS.X() - (17.0 + x_error);
      LCD.WriteLine("Offset");
     LCD.WriteLine(offset);
     Sleep(1.0);
@@ -127,7 +131,7 @@ void flip_ice_cream() {
     //Used to be 1.5
     //previously 2/3... worked on most but course A
     //When positve, overshoots
-    move_forward(2.10 - (offset *17/24));
+    move_forward(2.10 - (offset * 17/24));
     // //Right
     // if (flavor >= 1) {
     //     move_back(0.75);
@@ -188,14 +192,14 @@ void flip_burger() {
     // Going to the burger plate
     turn_right(33);
     move_forward(13.0);
-    correct_y(62.0);
+    correct_y(62.0 + y_error);
     turn_right(62);
 
     // Correcting the x-coordinate
     Sleep(1.0);
     LCD.WriteLine("X-Coordinate:");
     LCD.WriteLine(RPS.X());
-    correct_x(20.0);
+    correct_x(20.0 + x_error);
     correct_heading(0);
     move_back(2.5);
 
@@ -235,7 +239,7 @@ void slide_ticket() {
     //Or correcting heading 0, check correct heading code
     //turn_left(5.0);
     // Aligning with ticket
-    correct_x(31.5);
+    correct_x(31.5 + x_error);
 
     //New Sleep Test
     Sleep(1.0);
@@ -257,15 +261,15 @@ void slide_ticket() {
     Sleep(2.0);
     //
     //New code
-    if(RPS.X() < 30)
+    if(RPS.X() + x_error < 30)
     {
-        set_horizontal(100);
+        set_horizontal(95);
     }
-    else if (RPS.X() <31)
+    else if (RPS.X() + x_error <31)
     {
-        set_horizontal(90);
+        set_horizontal(85);
     }
-    else if (RPS.X() <33) 
+    else if (RPS.X() + x_error <33) 
     {set_horizontal(80);
     }
     else{
@@ -289,13 +293,15 @@ void hit_jukebox() {
     // Going to jukebox
     turn_right(110);
     move_back(6.0);
-    correct_x(21.5);
+    correct_heading(0);
+
+    correct_x(21.5 + x_error);
     turn_left(90);
     correct_heading(90);
-    move_back(14);
+    move_back(20);
     LCD.WriteLine(RPS.Y());
     Sleep(1.5);
-    correct_y(19.0);
+    correct_y(19.0 + y_error);
     LCD.WriteLine(RPS.Y());
     
     // Aligning with light
