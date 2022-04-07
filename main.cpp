@@ -8,6 +8,7 @@
 
 // Start
 void initialize();
+void record_coordinates();
 // All Tasks
 void perform_tasks();
 // Individual Tasks
@@ -37,9 +38,32 @@ void initialize() {
     set_up_servos();
 }
 
+void record_coordinates() {
+    int num = 13;
+    //Open new file for writing
+    FEHFile *fptr = SD.FOpen("Test.txt", "w");
+    // Write data to the opened file
+    SD.FPrintf(fptr,",This is a test. My favorite number is %d", num);
+    //Close file
+    SD.FClose(fptr); 
+}
+
 // All Tasks
 void perform_tasks() {
-    RPS.InitializeTouchMenu();
+    //RPS.InitializeTouchMenu();
+    Sleep(2.0);
+    record_coordinates();
+
+    float x, y;
+    while (LCD.Touch(&x, &y)) {
+
+    }
+
+    while (!LCD.Touch(&x, &y)) {
+
+    }
+    LCD.WriteLine("Touch is over");
+
     wait_for_light();
     flip_ice_cream();
     deposit_tray();
@@ -75,8 +99,9 @@ void flip_ice_cream() {
      LCD.WriteLine("Offset");
     LCD.WriteLine(offset);
     Sleep(1.0);
-    //Used to be 10.5. offest * 1.8, then 2
-    move_forward(11.25 + offset);
+    //Used to be 10.5. offest * 1.8, then 2, also 1
+    //Conistently close to being to far foward... may try 10.75? was at 11.25 at one point so
+    move_forward(10.75 + offset*1);
     Sleep(0.5);
 
     // Getting angled with levers
@@ -98,7 +123,7 @@ void flip_ice_cream() {
     //Used to be 1.5
     //previously 2/3... worked on most but course A
     //When positve, overshoots
-    move_forward(2.25 - (offset *17/24));
+    move_forward(2.10 - (offset *17/24));
     // //Right
     // if (flavor >= 1) {
     //     move_back(0.75);
@@ -174,6 +199,9 @@ void flip_burger() {
     set_side(100);
 
     // Flipping the burger
+    LCD.WriteLine("Y-Coord");
+    LCD.WriteLine(RPS.Y());
+    Sleep(2.0);
     move_forward(2.0);
     set_side(60);
     move_forward(2.0, 60);
@@ -183,6 +211,14 @@ void flip_burger() {
     turn_right(25, 60);
     move_forward(0.1);
     Sleep(1.0);
+    move_back(0.2);
+    Sleep(0.1);
+    turn_right(15);
+     Sleep(0.1);
+    move_forward(.2);
+     Sleep(0.1);
+    turn_left(5);
+ Sleep(0.1);
     
     // Lefting side arm back up
     Sleep(0.8);
@@ -193,14 +229,18 @@ void slide_ticket() {
     //Avoiding sticking on burger
     
     //Or correcting heading 0, check correct heading code
-    turn_left(5.0);
+    //turn_left(5.0);
     // Aligning with ticket
     correct_x(31.5);
 
+    //New Sleep Test
+    Sleep(1.0);
     // Turning to angle to ticket
     turn_left(100);
+    //New Sleep Test
+    Sleep(1.0);
     LCD.WriteLine(RPS.Heading());
-    correct_heading(95);
+    correct_heading(92);
     LCD.WriteLine(RPS.Heading());
 
     // Moving back to the ticket
@@ -208,8 +248,25 @@ void slide_ticket() {
     correct_heading(90);
     Sleep(1.0);
     //Used to be 90, 80 still got stuck on right of ticket
+    //TESTING
+    LCD.WriteLine(RPS.X());
+    Sleep(2.0);
+    //
+    //New code
+    if(RPS.X() < 30)
+    {
+        set_horizontal(100);
+    }
+    else if (RPS.X() <31)
+    {
+        set_horizontal(90);
+    }
+    else if (RPS.X() <33) 
+    {set_horizontal(80);
+    }
+    else{
     set_horizontal(70);
-
+}
     // Slide ticket
     Sleep(0.6);
     move_back(5);
@@ -234,7 +291,7 @@ void hit_jukebox() {
     move_back(14);
     LCD.WriteLine(RPS.Y());
     Sleep(1.5);
-    correct_y(19.2);
+    correct_y(19.0);
     LCD.WriteLine(RPS.Y());
     
     // Aligning with light
@@ -243,19 +300,19 @@ void hit_jukebox() {
     set_both(20);
     wait_for_light();
     stop();
-    move_forward(0.2);
+    move_forward(0.5);
     Sleep(1.0);
 
     // Testing if the light is red or blue or wasn't read correctly
     if (is_red()) {
         LCD.Clear(RED);
         move_forward(2.0);
-        turn_left(105);
+        turn_left(110);
 
         move_time(2, FORWARD);
 
         move_back(8);
-        turn_left(55);
+        turn_left(53);
     }
     else if (is_blue()) {
         LCD.Clear(BLUE);
