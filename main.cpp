@@ -43,7 +43,9 @@ void record_coordinates() {
     //Open new file for writing
     FEHFile *fptr = SD.FOpen("coordinates.txt", "w");
     // Write data to the opened file
-    SD.FPrintf(fptr,"x: %.4f, y: %.4f", 10.4444, 33.4444);
+    float num1 = 10.4444;
+    float num2 = 10.4444;
+    SD.FPrintf(fptr,"x: %.4f, y: %.4f", num1, num2);
     LCD.WriteLine(RPS.X());
     LCD.WriteLine(RPS.Y());
     //Close file
