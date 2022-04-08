@@ -41,7 +41,7 @@ void initialize() {
 void record_coordinates() {
     int num = 13;
     //Open new file for writing
-    FEHFile *fptr = SD.FOpen("coordinates.txt", "w");
+    FEHFile *fptr = SD.FOpen("coord.txt", "w");
     // Write data to the opened file
     float num1 = 10.4444;
     float num2 = 10.4444;
