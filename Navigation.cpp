@@ -67,11 +67,13 @@ double inches_to_counts(double inches) {
     return total_counts;
 }
 
-void move_counts(double counts, double left_speed, double right_speed) {
+void move_counts(double counts, double left_speed, double right_speed, double timeout) {
     set_right(right_speed);
     set_left(left_speed);
 
-    while ((right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
+    double start_time = TimeNow();
+
+    while (TimeNow() - start_time < timeout && (right_encoder.Counts() + left_encoder.Counts()) / 2 < counts) {
         double correction_factor = (right_encoder.Counts() + 0.01) / (left_encoder.Counts() + 0.01);
         set_left(left_speed * correction_factor * correction_factor);
     }
@@ -92,22 +94,22 @@ void set_left(double percent) {
 }
 
 void turn_left(double degrees) {
-    turn(-degrees, TURN_MOTOR_PERCENT);
+    turn(-degrees, TURN_MOTOR_PERCENT, DEFAULT_TIMEOUT);
 }
 
 void turn_left(double degrees, double percent) {
-    turn(-degrees, percent);
+    turn(-degrees, percent, DEFAULT_TIMEOUT);
 }
 
 void turn_right(double degrees) {
-    turn(degrees, TURN_MOTOR_PERCENT);
+    turn(degrees, TURN_MOTOR_PERCENT, DEFAULT_TIMEOUT);
 }
 
 void turn_right(double degrees, double percent) {
-    turn(degrees, percent);
+    turn(degrees, percent, DEFAULT_TIMEOUT);
 }
 
-void turn(double degrees, double percent) {
+void turn(double degrees, double percent, double timeout) {
     reset_encoder_counts();
     
     double motor_percent = percent;
@@ -120,7 +122,7 @@ void turn(double degrees, double percent) {
         degrees *= -1;
     }
 
-    move_counts(degrees * COUNTS_PER_DEGREE, motor_percent, -motor_percent);
+    move_counts(degrees * COUNTS_PER_DEGREE, motor_percent, -motor_percent, timeout);
     stop();
 }   
 
@@ -174,10 +176,14 @@ void move_forward(double inches) {
 }
 
 void move_forward(double inches, double speed) {
-    move_forward(inches, speed, speed);
+    move(inches, speed, speed, DEFAULT_TIMEOUT);
 }
 
 void move_forward(double inches, double left_speed, double right_speed) {
+    move(inches, left_speed, right_speed, DEFAULT_TIMEOUT);
+}
+
+void move(double inches, double left_speed, double right_speed, double timeout) {
     reset_encoder_counts();
     
     double total_counts = inches_to_counts(inches);
@@ -185,8 +191,16 @@ void move_forward(double inches, double left_speed, double right_speed) {
     set_left(left_speed);
     set_right(right_speed);
 
-    while ((left_encoder.Counts() + right_encoder.Counts()) / 2 < total_counts) {}
+    move_counts(total_counts, left_speed, right_speed, timeout);
     stop();
+}
+
+void move_timeout(double inches, double timeout) {
+    if (inches >= 0) {
+        move(inches, STRAIGHT_SPEED_PERCENT, STRAIGHT_SPEED_PERCENT, timeout);
+    } else {
+        move(inches, -STRAIGHT_SPEED_PERCENT, -STRAIGHT_SPEED_PERCENT, timeout);
+    }
 }
 
 // Backward Functions
@@ -203,12 +217,7 @@ void move_back(double inches, double speed) {
 }
 
 void move_back(double inches, double left_speed, double right_speed) {
-    reset_encoder_counts();
-    
-    double total_counts = inches_to_counts(inches);
-
-    move_counts(total_counts, -left_speed, -right_speed);
-    stop();
+    move(inches, -left_speed, -right_speed, DEFAULT_TIMEOUT);
 }
 
 void stop() {

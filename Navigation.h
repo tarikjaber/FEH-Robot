@@ -16,6 +16,7 @@
 #define RIGHT_CORRECTION_FACTOR 1.0
 #define TURN_MOTOR_PERCENT 20
 #define EPSILON 0.01
+#define DEFAULT_TIMEOUT 10
 
 extern FEHMotor left_motor;
 extern FEHMotor right_motor;
@@ -43,11 +44,13 @@ void turn_left(double degrees);
 void turn_left(double degrees, double percent);
 void turn_right(double degrees);
 void turn_right(double degrees, double percent);
-void turn(double degrees, double percent);
+void turn(double degrees, double percent, double timeout);
 // Motor
 void set_both(double percent);
 void set_left(double percent);
 void set_right(double percent);
+void move(double inches, double left_speed, double right_speed, double timeout);
+void move_timeout(double inches, double timeout);
 void turn_with_angle(double counts, double angle);
 void stop();
 void move_time(double time, Direction direction);
