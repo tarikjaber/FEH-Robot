@@ -89,7 +89,7 @@ void perform_tasks()
 void flip_ice_cream()
 {
     // Angle towards ramp
-    move_forward(13);
+    move_forward(12.8);
     correct_x(17.0 + x_error);
     turn_right(41);
 
@@ -120,7 +120,7 @@ void flip_ice_cream()
     Sleep(1.0);
     // Used to be 10.5. offest * 1.8, then 2, also 1
     // Conistently close to being to far foward... may try 10.75? was at 11.25 at one point so
-    move_forward(10.5 + forward_offset);
+    move_forward(10.3 + forward_offset);
     Sleep(0.5);
 
     // Getting angled with levers
@@ -161,7 +161,7 @@ void flip_ice_cream()
 
     // Flip back up
     move_back(2);
-    Sleep(2.0);
+    Sleep(6.5);
     set_side(70);
     Sleep(0.8);
     turn_right(13);
@@ -208,8 +208,8 @@ void flip_burger()
     // Going to the burger plate
     turn_right(33);
     move_forward(13.0);
-    correct_y(62.0 + y_error);
-    turn_right(62);
+    correct_y(61.9 + y_error);
+    turn_right(63);
 
     // Correcting the x-coordinate
     Sleep(1.0);
@@ -248,6 +248,11 @@ void flip_burger()
     // Lefting side arm back up
     Sleep(0.8);
     set_side(0);
+    turn_right(15);
+    move_back(1.0);
+    turn_right(20);
+    move_forward(2.5);
+    turn_left(35);
 }
 
 void slide_ticket()
